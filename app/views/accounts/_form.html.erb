@@ -17,8 +17,11 @@
   </div>
 
   <div class="field">
-    <%= form.label :crypt %>
-    <%= form.text_field :crypt %>
+    <%= form.label :password %>
+    <%= form.text_field :password %>
+    <% unless account.new_record? %>
+      (leave empty to let password remain unchanged)
+    <% end %>
   </div>
 
   <div class="field">

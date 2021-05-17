@@ -23,6 +23,7 @@ class AccountsController < ApplicationController
   # GET /accounts/new
   def new
     @account = Account.new
+    @account.email = "@#{@domain.domain}"
     @account.domain = @domain
     @account.enabled = true
   end
@@ -99,10 +100,10 @@ class AccountsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def new_account_params
-      params.require(:account).permit(:email, :crypt, :enabled)
+      params.require(:account).permit(:email, :password, :enabled)
     end
 
     def account_params
-      params.require(:account).permit(:crypt, :enabled)
+      params.require(:account).permit(:password, :enabled)
     end
 end
