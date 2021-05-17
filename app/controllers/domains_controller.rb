@@ -6,7 +6,7 @@ class DomainsController < ApplicationController
   before_action :add_dashboard_breadcrumb
   before_action :add_domains_breadcrumb
   before_action :add_new_breadcrumb, only: %i[ new create ]
-  before_action :add_show_breadcrumb, only: %i[ show ]
+  before_action :add_show_breadcrumb, only: %i[ show edit update ]
   before_action :add_edit_breadcrumb, only: %i[ edit update ]
 
   # GET /domains or /domains.json
@@ -83,7 +83,7 @@ class DomainsController < ApplicationController
     end
 
     def add_edit_breadcrumb
-      add_breadcrumb @domain.domain, edit_domain_path(@domain)
+      add_breadcrumb "Edit", edit_domain_path(@domain)
     end
 
     # Only allow a list of trusted parameters through.

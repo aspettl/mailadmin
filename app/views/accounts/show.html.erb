@@ -15,5 +15,8 @@
   <%= @account.enabled %>
 </p>
 
-<%= link_to 'Edit', edit_domain_account_path(@domain, @account) %> |
-<%= link_to 'Back', domain_accounts_path(@domain) %>
+<p>
+  <strong>Actions:</strong>
+  <%= link_to 'Edit account', edit_domain_account_path(@domain, @account) %> |
+  <%= link_to 'Destroy account', [@domain, @account], method: :delete, data: { confirm: 'Are you sure?' } %>
+</p>

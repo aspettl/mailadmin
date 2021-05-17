@@ -10,6 +10,9 @@
   <%= @domain.enabled %>
 </p>
 
-<%= link_to 'Manage accounts', domain_accounts_path(@domain) %> |
-<%= link_to 'Edit', edit_domain_path(@domain) %> |
-<%= link_to 'Back', domains_path %>
+<p>
+  <strong>Actions:</strong>
+  <%= link_to 'Edit domain', edit_domain_path(@domain) %> |
+  <%= link_to 'Manage accounts', domain_accounts_path(@domain) %> |
+  <%= link_to 'Destroy domain', @domain, method: :delete, data: { confirm: 'Are you sure?' } %>
+</p>

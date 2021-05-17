@@ -8,7 +8,7 @@ class AccountsController < ApplicationController
   before_action :add_domains_breadcrumb
   before_action :add_accounts_breadcrumb
   before_action :add_new_breadcrumb, only: %i[ new create ]
-  before_action :add_show_breadcrumb, only: %i[ show ]
+  before_action :add_show_breadcrumb, only: %i[ show edit update ]
   before_action :add_edit_breadcrumb, only: %i[ edit update ]
 
   # GET /accounts or /accounts.json
@@ -94,7 +94,7 @@ class AccountsController < ApplicationController
     end
 
     def add_edit_breadcrumb
-      add_breadcrumb @account.email, edit_domain_account_path(@domain, @account)
+      add_breadcrumb "Edit", edit_domain_account_path(@domain, @account)
     end
 
     # Only allow a list of trusted parameters through.
