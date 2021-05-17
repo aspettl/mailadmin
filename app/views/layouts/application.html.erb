@@ -11,6 +11,10 @@
   </head>
 
   <body>
+    <% unless breadcrumbs_on_rails.empty? %>
+    <p id="breadcrumbs"><%= render_breadcrumbs %></p>
+    <% end %>
+
     <p id="notice"><%= notice %></p>
     <p id="alert"><%= alert %></p>
 

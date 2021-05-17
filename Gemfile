@@ -28,6 +28,9 @@ gem 'jbuilder', '~> 2.7'
 # Authentication framework
 gem 'devise'
 
+# Helper for generating the breadcrumb navigation
+gem "breadcrumbs_on_rails"
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 

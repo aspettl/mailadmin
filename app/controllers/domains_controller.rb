@@ -3,6 +3,12 @@ class DomainsController < ApplicationController
   before_action :set_user
   before_action :set_domain, only: %i[ show edit update destroy ]
 
+  before_action :add_dashboard_breadcrumb
+  before_action :add_domains_breadcrumb
+  before_action :add_new_breadcrumb, only: %i[ new create ]
+  before_action :add_show_breadcrumb, only: %i[ show ]
+  before_action :add_edit_breadcrumb, only: %i[ edit update ]
+
   # GET /domains or /domains.json
   def index
     @domains = current_user.domains.all
@@ -65,6 +71,19 @@ class DomainsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_domain
       @domain = current_user.domains.find(params[:id])
+    end
+
+    # Hooks for generation of dynamic breadcrumbs.
+    def add_new_breadcrumb
+      add_breadcrumb "New domain", :new_domain_path
+    end
+
+    def add_show_breadcrumb
+      add_breadcrumb @domain.domain, @domain
+    end
+
+    def add_edit_breadcrumb
+      add_breadcrumb @domain.domain, edit_domain_path(@domain)
     end
 
     # Only allow a list of trusted parameters through.

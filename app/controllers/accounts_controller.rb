@@ -4,6 +4,13 @@ class AccountsController < ApplicationController
   before_action :set_domain
   before_action :set_account, only: %i[ show edit update destroy ]
 
+  before_action :add_dashboard_breadcrumb
+  before_action :add_domains_breadcrumb
+  before_action :add_accounts_breadcrumb
+  before_action :add_new_breadcrumb, only: %i[ new create ]
+  before_action :add_show_breadcrumb, only: %i[ show ]
+  before_action :add_edit_breadcrumb, only: %i[ edit update ]
+
   # GET /accounts or /accounts.json
   def index
     @accounts = @domain.accounts.all
@@ -70,6 +77,24 @@ class AccountsController < ApplicationController
 
     def set_account
       @account = @domain.accounts.find(params[:id])
+    end
+
+    # Hooks for generation of dynamic breadcrumbs.
+    def add_accounts_breadcrumb
+      add_breadcrumb @domain.domain, @domain
+      add_breadcrumb "Manage accounts", domain_accounts_path(@domain)
+    end
+
+    def add_new_breadcrumb
+      add_breadcrumb "New account", new_domain_account_path(@domain)
+    end
+
+    def add_show_breadcrumb
+      add_breadcrumb @account.email, [@domain, @account]
+    end
+
+    def add_edit_breadcrumb
+      add_breadcrumb @account.email, edit_domain_account_path(@domain, @account)
     end
 
     # Only allow a list of trusted parameters through.
