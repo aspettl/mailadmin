@@ -1,0 +1,13 @@
+<p>
+  <strong>Domain:</strong>
+  <%= @domain.domain %>
+</p>
+
+<p>
+  <strong>Enabled:</strong>
+  <%= @domain.enabled %>
+</p>
+
+<%= link_to 'Manage accounts', domain_accounts_path(@domain) %> |
+<%= link_to 'Edit', edit_domain_path(@domain) %> |
+<%= link_to 'Back', domains_path %>

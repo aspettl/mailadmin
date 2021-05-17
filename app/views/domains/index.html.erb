@@ -1,0 +1,29 @@
+<h1>Domains</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Domain</th>
+      <th>Enabled</th>
+      <th colspan="4">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @domains.each do |domain| %>
+      <tr>
+        <td><%= domain.domain %></td>
+        <td><%= domain.enabled %></td>
+        <td><%= link_to 'Show', domain %></td>
+        <td><%= link_to 'Edit', edit_domain_path(domain) %></td>
+        <td><%= link_to 'Manage accounts', domain_accounts_path(domain) %></td>
+        <td><%= link_to 'Destroy', domain, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Back', dashboard_path %> |
+<%= link_to 'New domain', new_domain_path %>

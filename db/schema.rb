@@ -10,7 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_17_142427) do
+ActiveRecord::Schema.define(version: 2021_05_17_152152) do
+
+  create_table "accounts", force: :cascade do |t|
+    t.string "email"
+    t.string "crypt"
+    t.integer "domain_id", null: false
+    t.boolean "enabled"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["domain_id"], name: "index_accounts_on_domain_id"
+  end
+
+  create_table "domains", force: :cascade do |t|
+    t.string "domain"
+    t.integer "user_id", null: false
+    t.boolean "enabled"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_domains_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -26,4 +45,6 @@ ActiveRecord::Schema.define(version: 2021_05_17_142427) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "accounts", "domains"
+  add_foreign_key "domains", "users"
 end

@@ -1,0 +1,17 @@
+<p>
+  <strong>Email:</strong>
+  <%= @account.email %>
+</p>
+
+<p>
+  <strong>Crypt:</strong>
+  <%= @account.crypt %>
+</p>
+
+<p>
+  <strong>Enabled:</strong>
+  <%= @account.enabled %>
+</p>
+
+<%= link_to 'Edit', edit_domain_account_path(@domain, @account) %> |
+<%= link_to 'Back', domain_accounts_path(@domain) %>

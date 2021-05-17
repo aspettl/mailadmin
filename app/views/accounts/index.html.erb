@@ -1,0 +1,28 @@
+<h1>Accounts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Enabled</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @accounts.each do |account| %>
+      <tr>
+        <td><%= account.email %></td>
+        <td><%= account.enabled %></td>
+        <td><%= link_to 'Show', [@domain, account] %></td>
+        <td><%= link_to 'Edit', edit_domain_account_path(@domain, account) %></td>
+        <td><%= link_to 'Destroy', [@domain, account], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Back', domains_path %> |
+<%= link_to 'New account', new_domain_account_path(@domain) %>

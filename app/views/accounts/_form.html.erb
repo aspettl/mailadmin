@@ -1,0 +1,32 @@
+<%= form_with(model: [account.domain, account]) do |form| %>
+  <% if account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(account.errors.count, "error") %> prohibited this account from being saved:</h2>
+
+      <ul>
+        <% account.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email, disabled: !account.new_record? %>
+  </div>
+
+  <div class="field">
+    <%= form.label :crypt %>
+    <%= form.text_field :crypt %>
+  </div>
+
+  <div class="field">
+    <%= form.label :enabled %>
+    <%= form.check_box :enabled %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

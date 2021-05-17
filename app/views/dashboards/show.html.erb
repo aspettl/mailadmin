@@ -1,4 +1,6 @@
-<h1>Dashboards#show</h1>
-<p>Find me in app/views/dashboards/show.html.erb</p>
+<h1>Dashboard</h1>
 
+<p>You are logged in as: <%= @user.email %></p>
+
+<%= link_to 'Manage domains', domains_path %> |
 <%= link_to 'Log out', destroy_user_session_path, method: :delete %>

@@ -1,0 +1,27 @@
+<%= form_with(model: domain) do |form| %>
+  <% if domain.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(domain.errors.count, "error") %> prohibited this domain from being saved:</h2>
+
+      <ul>
+        <% domain.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :domain %>
+    <%= form.text_field :domain, disabled: !domain.new_record? %>
+  </div>
+
+  <div class="field">
+    <%= form.label :enabled %>
+    <%= form.check_box :enabled %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
