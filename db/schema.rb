@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_18_095500) do
+ActiveRecord::Schema.define(version: 2021_05_18_153805) do
 
   create_table "accounts", charset: "utf8mb4", force: :cascade do |t|
     t.string "email"
@@ -31,6 +31,8 @@ ActiveRecord::Schema.define(version: 2021_05_18_095500) do
     t.boolean "enabled"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "type", default: 0, null: false
+    t.string "alias_target"
     t.index ["domain"], name: "index_domains_on_domain", unique: true
     t.index ["user_id"], name: "index_domains_on_user_id"
   end

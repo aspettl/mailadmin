@@ -88,10 +88,10 @@ class DomainsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def new_domain_params
-      params.require(:domain).permit(:domain, :enabled)
+      params.require(:domain).permit(:type, :domain, :enabled, :alias_target)
     end
 
     def domain_params
-      params.require(:domain).permit(:enabled)
+      params.require(:domain).permit(:enabled, :alias_target)
     end
 end

@@ -4,7 +4,9 @@
   <thead>
     <tr>
       <th>Domain</th>
+      <th>Type</th>
       <th>Enabled</th>
+      <th>Alias target</th>
       <th colspan="4">Actions</th>
     </tr>
   </thead>
@@ -13,10 +15,12 @@
     <% @domains.each do |domain| %>
       <tr>
         <td><%= domain.domain %></td>
+        <td><%= domain.type.humanize %></td>
         <td><%= domain.enabled %></td>
+        <td><%= domain.alias_domain? ? truncate(domain.alias_target, length: 50) : '' %></td>
         <td><%= link_to 'Show', domain %></td>
         <td><%= link_to 'Edit', edit_domain_path(domain) %></td>
-        <td><%= link_to 'Manage accounts', domain_accounts_path(domain) %></td>
+        <td><%= link_to_if domain.local_domain?, 'Manage accounts', domain_accounts_path(domain) %></td>
         <td><%= link_to 'Destroy', domain, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

@@ -1,6 +1,11 @@
 <h1>Show domain</h1>
 
 <p>
+  <strong>Type:</strong>
+  <%= @domain.type.humanize %>
+</p>
+
+<p>
   <strong>Domain:</strong>
   <%= @domain.domain %>
 </p>
@@ -10,10 +15,17 @@
   <%= @domain.enabled %>
 </p>
 
+<% if @domain.alias_domain? %>
+  <p>
+    <strong>Alias target:</strong>
+    <%= @domain.alias_target %>
+  </p>
+<% end %>
+
 <p>
   <strong>Actions:</strong>
   <%= link_to 'Edit domain', edit_domain_path(@domain) %> |
-  <%= link_to 'Manage accounts', domain_accounts_path(@domain) %> |
+  <%= link_to_if @domain.local_domain?, 'Manage accounts', domain_accounts_path(@domain) %> |
   <%= link_to 'Destroy domain', @domain, method: :delete, data: { confirm: 'Are you sure?' } %>
 </p>
 

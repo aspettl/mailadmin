@@ -12,6 +12,12 @@
   <% end %>
 
   <div class="field">
+    <%= form.label :type %>
+    <%= form.select :type, Domain.types.keys.map { |t| [t.humanize, t] }, {}, disabled: !domain.new_record? %>
+    (immutable, cannot be changed after creation)
+  </div>
+
+  <div class="field">
     <%= form.label :domain %>
     <%= form.text_field :domain, disabled: !domain.new_record?, autofocus: domain.new_record? %>
   </div>
@@ -20,6 +26,13 @@
     <%= form.label :enabled %>
     <%= form.check_box :enabled %>
   </div>
+
+  <% if domain.new_record? || domain.alias_domain? %>
+    <div class="field">
+      <%= form.label :alias_target %>
+      <%= form.text_field :alias_target, disabled: !domain.new_record? && !domain.alias_domain? %>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= form.submit %>
