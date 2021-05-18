@@ -13,12 +13,12 @@
 
   <div class="field">
     <%= form.label :email %>
-    <%= form.text_field :email, disabled: !account.new_record? %>
+    <%= form.text_field :email, disabled: !account.new_record?, autofocus: account.new_record? %>
   </div>
 
   <div class="field">
     <%= form.label :password %>
-    <%= form.text_field :password %>
+    <%= form.text_field :password, autofocus: !account.new_record? %>
     <% unless account.new_record? %>
       (leave empty to let password remain unchanged)
     <% end %>

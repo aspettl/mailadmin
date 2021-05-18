@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= form.label :domain %>
-    <%= form.text_field :domain, disabled: !domain.new_record? %>
+    <%= form.text_field :domain, disabled: !domain.new_record?, autofocus: domain.new_record? %>
   </div>
 
   <div class="field">
