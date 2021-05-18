@@ -3,3 +3,11 @@
 <ul>
   <li>You have <%= @domains_count %> domains with <%= @accounts_count %> accounts. <%= link_to 'Manage domains', domains_path %></li>
 </ul>
+
+<h2>Required domain configuration</h2>
+
+DNS records:
+<pre>
+@   3600    IN  MX  10  <%= @mailserver_hostname %>.
+@   3600    IN  TXT     "v=spf1 include:<%= @mailserver_hostname %> ~all"
+</pre>
