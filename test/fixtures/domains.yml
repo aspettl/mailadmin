@@ -4,8 +4,3 @@ one:
   domain: MyString
   user: one
   enabled: false
-
-two:
-  domain: MyString
-  user: two
-  enabled: false

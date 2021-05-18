@@ -5,9 +5,3 @@ one:
   crypt: MyString
   domain: one
   enabled: false
-
-two:
-  email: MyString
-  crypt: MyString
-  domain: two
-  enabled: false
