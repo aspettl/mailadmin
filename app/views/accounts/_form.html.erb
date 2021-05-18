@@ -23,7 +23,7 @@
 
   <div class="field">
     <%= form.label :password %>
-    <%= form.text_field :password, autofocus: !account.new_record? %>
+    <%= form.password_field :password, autofocus: !account.new_record? %>
     <% unless account.new_record? %>
       (leave empty to let password remain unchanged)
     <% end %>

@@ -13,7 +13,7 @@ class AccountsController < ApplicationController
 
   # GET /accounts or /accounts.json
   def index
-    @accounts = @domain.accounts.all
+    @accounts = @domain.accounts.order(:email).all
   end
 
   # GET /accounts/1 or /accounts/1.json

@@ -1,7 +1,10 @@
 <h1>Dashboard</h1>
 
 <ul>
-  <li>You have <%= @domains_count %> domains with <%= @accounts_count %> accounts. <%= link_to 'Manage domains', domains_path %></li>
+  <li>
+    You have <%= @domains_count %> domains with <%= @local_accounts_count %> local accounts and <%= @forwarding_accounts_count %> forwarding accounts.
+    <%= link_to 'Manage domains', domains_path %>
+  </li>
 </ul>
 
 <h2>Required domain configuration</h2>

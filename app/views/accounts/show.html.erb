@@ -30,3 +30,7 @@
   <%= link_to 'Edit account', edit_domain_account_path(@domain, @account) %> |
   <%= link_to 'Destroy account', [@domain, @account], method: :delete, data: { confirm: 'Are you sure?' } %>
 </p>
+
+<br>
+
+<%= link_to 'Back to list', domain_accounts_path(@domain) %>
