@@ -27,6 +27,18 @@
     <%= form.check_box :enabled %>
   </div>
 
+  <% if domain.new_record? || domain.local_domain? %>
+    <div class="field">
+      <%= form.label :catchall %>
+      <%= form.check_box :catchall %>
+    </div>
+
+    <div class="field">
+      <%= form.label :catchall_target %>
+      <%= form.text_field :catchall_target %>
+    </div>
+  <% end %>
+
   <% if domain.new_record? || domain.alias_domain? %>
     <div class="field">
       <%= form.label :alias_target %>

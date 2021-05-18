@@ -6,6 +6,7 @@
       <th>Domain</th>
       <th>Type</th>
       <th>Enabled</th>
+      <th>Catchall</th>
       <th>Alias target</th>
       <th colspan="4">Actions</th>
     </tr>
@@ -17,6 +18,7 @@
         <td><%= domain.domain %></td>
         <td><%= domain.type.humanize %></td>
         <td><%= domain.enabled %></td>
+        <td><%= domain.catchall %></td>
         <td><%= domain.alias_domain? ? truncate(domain.alias_target, length: 50) : '' %></td>
         <td><%= link_to 'Show', domain %></td>
         <td><%= link_to 'Edit', edit_domain_path(domain) %></td>

@@ -15,6 +15,18 @@
   <%= @domain.enabled %>
 </p>
 
+<% if @domain.local_domain? %>
+  <p>
+    <strong>Catchall:</strong>
+    <%= @domain.catchall %>
+  </p>
+
+  <p>
+    <strong>Catchall target:</strong>
+    <%= @domain.catchall_target %>
+  </p>
+<% end %>
+
 <% if @domain.alias_domain? %>
   <p>
     <strong>Alias target:</strong>

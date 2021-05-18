@@ -10,6 +10,9 @@ class Domain < ApplicationRecord
   validates :type, inclusion: { in: types.keys }
   validates :domain, uniqueness: true, format: { with: DOMAIN_REGEXP }, length: { maximum: 255 }
   validates :enabled, inclusion: { in: [ true, false ] }
+  validates :catchall, inclusion: { in: [ true, false ] }
+  validates :catchall_target, presence: { if: :catchall }, format: { with: Account::EMAIL_REGEXP, allow_blank: true }, length: { maximum: 255 }, if: :local_domain?
+  validates :catchall_target, inclusion: { in: [ nil, '' ], message: 'must be empty when this is an alias domain' }, unless: :local_domain?
   validates :alias_target, format: { with: DOMAIN_REGEXP }, length: { maximum: 255 }, if: :alias_domain?
   validates :alias_target, inclusion: { in: [ nil, '' ], message: 'must be empty when this is not an alias domain' }, unless: :alias_domain?
 end

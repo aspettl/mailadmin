@@ -4,4 +4,5 @@ examplecom:
   type: local_domain
   domain: example.com
   enabled: true
+  catchall: false
   user: alice
