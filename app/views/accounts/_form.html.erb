@@ -12,6 +12,12 @@
   <% end %>
 
   <div class="field">
+    <%= form.label :type %>
+    <%= form.select :type, Account.types.keys.map { |t| [t.humanize, t] }, {}, disabled: !account.new_record? %>
+    (immutable, cannot be changed after creation)
+  </div>
+
+  <div class="field">
     <%= form.label :email %>
     <%= form.text_field :email, disabled: !account.new_record?, autofocus: account.new_record? %>
   </div>
@@ -21,24 +27,33 @@
     <%= form.check_box :enabled %>
   </div>
 
-  <div class="field">
-    <%= form.label :password %>
-    <%= form.password_field :password, autofocus: !account.new_record? %>
-    <% unless account.new_record? %>
-      (leave empty to let password remain unchanged)
-    <% end %>
-  </div>
+  <% if account.new_record? || account.local_mailbox? %>
+    <div class="field">
+      <%= form.label :password %>
+      <%= form.password_field :password, autofocus: !account.new_record? %>
+      <% unless account.new_record? %>
+        (leave empty to let password remain unchanged)
+      <% end %>
+    </div>
 
-  <div class="field">
-    <%= form.label :forward %>
-    <%= form.check_box :forward %>
-  </div>
+    <div class="field">
+      <%= form.label :forward %>
+      <%= form.check_box :forward %>
+    </div>
 
-  <div class="field">
-    <%= form.label :forward_to %>
-    <%= form.text_field :forward_to %>
-    (multiple addresses can be separated by a single comma without space)
-  </div>
+    <div class="field">
+      <%= form.label :forward_to %>
+      <%= form.text_field :forward_to %>
+    </div>
+  <% end %>
+
+  <% if account.new_record? || account.alias_address? %>
+    <div class="field">
+      <%= form.label :alias_target %>
+      <%= form.text_field :alias_target, disabled: !account.new_record? && !account.alias_address? %>
+      (multiple addresses can be separated by a single comma without space)
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= form.submit %>

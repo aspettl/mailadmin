@@ -1,5 +1,6 @@
 class Domain < ApplicationRecord
-  DOMAIN_REGEXP = /\A[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,10}\Z/ix
+  DOMAIN_REGEXP = /\A[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,10}\z/ix
+
   belongs_to :user
   has_many :accounts, dependent: :destroy
 

@@ -8,8 +8,8 @@ class DashboardsController < ApplicationController
 
   def show
     @domains_count = @user.domains.count
-    @local_accounts_count = @user.accounts.where(forward: false).count
-    @forwarding_accounts_count = @user.accounts.where(forward: true).count
+    @local_accounts_count = @user.accounts.where(type: Account.types[:local_mailbox]).count
+    @forwarding_accounts_count = @user.accounts.where(type: Account.types[:alias_address]).count
 
     @mailserver_hostname = ENV['MAILSERVER_HOSTNAME'] || Socket.gethostname
   end

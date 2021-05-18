@@ -4,8 +4,9 @@
   <thead>
     <tr>
       <th>Email</th>
+      <th>Type</th>
       <th>Enabled</th>
-      <th>Forwarding to</th>
+      <th>Forwarding/alias target</th>
       <th colspan="3">Actions</th>
     </tr>
   </thead>
@@ -14,8 +15,9 @@
     <% @accounts.each do |account| %>
       <tr>
         <td><%= account.email %></td>
+        <td><%= account.type.humanize %></td>
         <td><%= account.enabled %></td>
-        <td><%= account.forward ? truncate(account.forward_to, length: 50) : '' %></td>
+        <td><%= truncate(account.alias_address? ? account.alias_target : (account.forward ? account.forward_to : ''), length: 50) %></td>
         <td><%= link_to 'Show', [@domain, account] %></td>
         <td><%= link_to 'Edit', edit_domain_account_path(@domain, account) %></td>
         <td><%= link_to 'Destroy', [@domain, account], method: :delete, data: { confirm: 'Are you sure?' } %></td>

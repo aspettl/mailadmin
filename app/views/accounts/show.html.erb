@@ -1,6 +1,11 @@
 <h1>Show account</h1>
 
 <p>
+  <strong>Type:</strong>
+  <%= @account.type.humanize %>
+</p>
+
+<p>
   <strong>Email:</strong>
   <%= @account.email %>
 </p>
@@ -10,20 +15,29 @@
   <%= @account.enabled %>
 </p>
 
-<p>
-  <strong>Password hash method:</strong>
-  <%= @account.crypt_hash_method %>
-</p>
+<% if @account.local_mailbox? %>
+  <p>
+    <strong>Password hash method:</strong>
+    <%= @account.crypt_hash_method %>
+  </p>
 
-<p>
-  <strong>Forward:</strong>
-  <%= @account.forward %>
-</p>
+  <p>
+    <strong>Forward:</strong>
+    <%= @account.forward %>
+  </p>
 
-<p>
-  <strong>Forward to:</strong>
-  <%= @account.forward_to %>
-</p>
+  <p>
+    <strong>Forward to:</strong>
+    <%= @account.forward_to %>
+  </p>
+<% end %>
+
+<% if @account.alias_address? %>
+  <p>
+    <strong>Alias target:</strong>
+    <%= @account.alias_target %>
+  </p>
+<% end %>
 
 <p>
   <strong>Actions:</strong>

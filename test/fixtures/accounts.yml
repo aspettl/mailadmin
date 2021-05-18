@@ -1,8 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 postmaster:
-  email: postmaster@example.com
+  type: local_mailbox
   domain: examplecom
+  email: postmaster@example.com
   enabled: true
   crypt: <%= 'test'.crypt('aa') %>
   forward: false
