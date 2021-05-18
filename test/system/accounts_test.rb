@@ -2,44 +2,44 @@ require "application_system_test_case"
 
 class AccountsTest < ApplicationSystemTestCase
   setup do
-    @account = accounts(:one)
+    @domain = domains(:examplecom)
+
+    visit domain_accounts_url(@domain)
+    fill_in "Email", with: users(:alice).email
+    fill_in "Password", with: 'test'
+    click_on "Log in"
   end
 
   test "visiting the index" do
-    visit accounts_url
+    visit domain_accounts_url(@domain)
     assert_selector "h1", text: "Accounts"
   end
 
-  test "creating a Account" do
-    visit accounts_url
-    click_on "New Account"
+  test "creating a account" do
+    visit domain_accounts_url(@domain)
+    click_on "New account"
 
-    fill_in "Crypt", with: @account.crypt
-    fill_in "Domain", with: @account.domain_id
-    fill_in "Email", with: @account.email
-    check "Enabled" if @account.enabled
-    click_on "Create Account"
+    fill_in "Email", with: 'new-address@example.com'
+    fill_in "Password", with: 'min10characters'
+    click_on "Create account"
 
     assert_text "Account was successfully created"
     click_on "Back"
   end
 
-  test "updating a Account" do
-    visit accounts_url
+  test "updating a account" do
+    visit domain_accounts_url(@domain)
     click_on "Edit", match: :first
 
-    fill_in "Crypt", with: @account.crypt
-    fill_in "Domain", with: @account.domain_id
-    fill_in "Email", with: @account.email
-    check "Enabled" if @account.enabled
-    click_on "Update Account"
+    uncheck "Enabled"
+    click_on "Update account"
 
     assert_text "Account was successfully updated"
     click_on "Back"
   end
 
-  test "destroying a Account" do
-    visit accounts_url
+  test "destroying a account" do
+    visit domain_accounts_url(@domain)
     page.accept_confirm do
       click_on "Destroy", match: :first
     end

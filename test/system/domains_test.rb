@@ -2,7 +2,12 @@ require "application_system_test_case"
 
 class DomainsTest < ApplicationSystemTestCase
   setup do
-    @domain = domains(:one)
+    @domain = domains(:examplecom)
+
+    visit domains_url
+    fill_in "Email", with: users(:alice).email
+    fill_in "Password", with: 'test'
+    click_on "Log in"
   end
 
   test "visiting the index" do
@@ -10,33 +15,30 @@ class DomainsTest < ApplicationSystemTestCase
     assert_selector "h1", text: "Domains"
   end
 
-  test "creating a Domain" do
+  test "creating a domain" do
     visit domains_url
-    click_on "New Domain"
+    click_on "New domain"
 
-    fill_in "Domain", with: @domain.domain
-    check "Enabled" if @domain.enabled
-    fill_in "User", with: @domain.user_id
-    click_on "Create Domain"
+    fill_in "Domain", with: 'new-domain.abc'
+    check "Enabled"
+    click_on "Create domain"
 
     assert_text "Domain was successfully created"
     click_on "Back"
   end
 
-  test "updating a Domain" do
+  test "updating a domain" do
     visit domains_url
     click_on "Edit", match: :first
 
-    fill_in "Domain", with: @domain.domain
-    check "Enabled" if @domain.enabled
-    fill_in "User", with: @domain.user_id
-    click_on "Update Domain"
+    uncheck "Enabled"
+    click_on "Update domain"
 
     assert_text "Domain was successfully updated"
     click_on "Back"
   end
 
-  test "destroying a Domain" do
+  test "destroying a domain" do
     visit domains_url
     page.accept_confirm do
       click_on "Destroy", match: :first
