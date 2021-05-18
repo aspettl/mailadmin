@@ -2,7 +2,8 @@
 
 <ul>
   <li>
-    You have <%= @domains_count %> domains with <%= @local_accounts_count %> local accounts and <%= @forwarding_accounts_count %> forwarding accounts.
+    You have <%= @local_domains_count %> domains with <%= @local_mailboxes_count %> mailboxes and <%= @alias_addresses_count %> alias addresses.
+    Furthermore, you have <%= @alias_domains_count %> alias domains.
     <%= link_to 'Manage domains', domains_path %>
   </li>
 </ul>

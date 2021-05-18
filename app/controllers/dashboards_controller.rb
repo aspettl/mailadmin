@@ -7,9 +7,10 @@ class DashboardsController < ApplicationController
   before_action :add_dashboard_breadcrumb
 
   def show
-    @domains_count = @user.domains.count
-    @local_accounts_count = @user.accounts.where(type: Account.types[:local_mailbox]).count
-    @forwarding_accounts_count = @user.accounts.where(type: Account.types[:alias_address]).count
+    @local_domains_count = @user.domains.where(type: Domain.types[:local_domain]).count
+    @alias_domains_count = @user.domains.where(type: Domain.types[:alias_domain]).count
+    @local_mailboxes_count = @user.accounts.where(type: Account.types[:local_mailbox]).count
+    @alias_addresses_count = @user.accounts.where(type: Account.types[:alias_address]).count
 
     @mailserver_hostname = ENV['MAILSERVER_HOSTNAME'] || Socket.gethostname
   end
