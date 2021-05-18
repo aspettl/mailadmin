@@ -1,8 +1,17 @@
 require "test_helper"
 
 class DomainsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
-    @domain = domains(:one)
+    @domain = domains(:examplecom)
+    sign_in users(:alice)
+  end
+
+  test "should be logged in" do
+    sign_out users(:alice)
+    get domains_url
+    assert_redirected_to new_user_session_url
   end
 
   test "should get index" do
@@ -17,7 +26,7 @@ class DomainsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create domain" do
     assert_difference('Domain.count') do
-      post domains_url, params: { domain: { domain: @domain.domain, enabled: @domain.enabled, user_id: @domain.user_id } }
+      post domains_url, params: { domain: { domain: 'new-domain.abc', enabled: true, user_id: users(:alice).id } }
     end
 
     assert_redirected_to domain_url(Domain.last)
@@ -34,7 +43,7 @@ class DomainsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update domain" do
-    patch domain_url(@domain), params: { domain: { domain: @domain.domain, enabled: @domain.enabled, user_id: @domain.user_id } }
+    patch domain_url(@domain), params: { domain: { enabled: false } }
     assert_redirected_to domain_url(@domain)
   end
 

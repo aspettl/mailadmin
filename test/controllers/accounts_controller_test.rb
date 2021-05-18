@@ -1,48 +1,58 @@
 require "test_helper"
 
 class AccountsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
-    @account = accounts(:one)
+    @domain = domains(:examplecom)
+    @account = accounts(:postmaster)
+    sign_in users(:alice)
+  end
+
+  test "should be logged in" do
+    sign_out users(:alice)
+    get domain_accounts_url(@domain)
+    assert_redirected_to new_user_session_url
   end
 
   test "should get index" do
-    get accounts_url
+    get domain_accounts_url(@domain)
     assert_response :success
   end
 
   test "should get new" do
-    get new_account_url
+    get new_domain_account_url(@domain)
     assert_response :success
   end
 
   test "should create account" do
     assert_difference('Account.count') do
-      post accounts_url, params: { account: { crypt: @account.crypt, domain_id: @account.domain_id, email: @account.email, enabled: @account.enabled } }
+      post domain_accounts_url(@domain), params: { account: { email: 'new-address@example.com', enabled: true, password: 'min10characters' } }
     end
 
-    assert_redirected_to account_url(Account.last)
+    assert_redirected_to domain_account_url(@domain, Account.last)
   end
 
   test "should show account" do
-    get account_url(@account)
+    get domain_account_url(@domain, @account)
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_account_url(@account)
+    get edit_domain_account_url(@domain, @account)
     assert_response :success
   end
 
   test "should update account" do
-    patch account_url(@account), params: { account: { crypt: @account.crypt, domain_id: @account.domain_id, email: @account.email, enabled: @account.enabled } }
-    assert_redirected_to account_url(@account)
+    patch domain_account_url(@domain, @account), params: { account: { enabled: false } }
+    assert_redirected_to domain_account_url(@domain, @account)
   end
 
   test "should destroy account" do
     assert_difference('Account.count', -1) do
-      delete account_url(@account)
+      delete domain_account_url(@domain, @account)
     end
 
-    assert_redirected_to accounts_url
+    assert_redirected_to domain_accounts_url(@domain)
   end
 end

@@ -32,7 +32,7 @@ class Account < ApplicationRecord
 
   private
     def crypt_password
-      self.crypt = sha512crypt(password) unless password.empty?
+      self.crypt = sha512crypt(password) unless password.blank?
     end
 
     def sha512crypt(password)
