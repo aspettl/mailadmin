@@ -11,6 +11,7 @@ class DashboardsController < ApplicationController
     @alias_domains_count = @user.domains.where(type: Domain.types[:alias_domain]).count
     @local_mailboxes_count = @user.accounts.where(type: Account.types[:local_mailbox]).count
     @alias_addresses_count = @user.accounts.where(type: Account.types[:alias_address]).count
+    @blackhole_addresses_count = @user.accounts.where(type: Account.types[:blackhole_address]).count
 
     @mailserver_hostname = ENV['MAILSERVER_HOSTNAME'] || Socket.gethostname
   end
