@@ -4,4 +4,5 @@ one:
   email: MyString
   crypt: MyString
   domain: one
+  forward: false
   enabled: false

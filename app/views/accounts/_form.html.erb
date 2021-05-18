@@ -17,6 +17,11 @@
   </div>
 
   <div class="field">
+    <%= form.label :enabled %>
+    <%= form.check_box :enabled %>
+  </div>
+
+  <div class="field">
     <%= form.label :password %>
     <%= form.text_field :password, autofocus: !account.new_record? %>
     <% unless account.new_record? %>
@@ -25,8 +30,14 @@
   </div>
 
   <div class="field">
-    <%= form.label :enabled %>
-    <%= form.check_box :enabled %>
+    <%= form.label :forward %>
+    <%= form.check_box :forward %>
+  </div>
+
+  <div class="field">
+    <%= form.label :forward_to %>
+    <%= form.text_field :forward_to %>
+    (multiple addresses can be separated by a single comma without space)
   </div>
 
   <div class="actions">

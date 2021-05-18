@@ -100,10 +100,10 @@ class AccountsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def new_account_params
-      params.require(:account).permit(:email, :password, :enabled)
+      params.require(:account).permit(:email, :enabled, :password, :forward, :forward_to)
     end
 
     def account_params
-      params.require(:account).permit(:password, :enabled)
+      params.require(:account).permit(:enabled, :password, :forward, :forward_to)
     end
 end
