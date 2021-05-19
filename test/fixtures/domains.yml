@@ -1,8 +1,23 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 examplecom:
+  user: alice
   type: local_domain
   domain: example.com
   enabled: true
   catchall: false
+
+exampleorg:
   user: alice
+  type: local_domain
+  domain: example.org
+  enabled: true
+  catchall: true
+  catchall_target: mail@example.com
+
+examplenet:
+  user: alice
+  type: alias_domain
+  domain: example.net
+  enabled: true
+  alias_target: example.com

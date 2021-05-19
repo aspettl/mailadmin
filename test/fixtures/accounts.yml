@@ -6,4 +6,26 @@ postmaster:
   email: postmaster@example.com
   enabled: true
   crypt: <%= 'test'.crypt('aa') %>
+  forward: true
+  forward_to: mail@example.com
+
+mailbox:
+  type: local_mailbox
+  domain: examplecom
+  email: mail@example.com
+  enabled: true
+  crypt: <%= 'test'.crypt('$1$aaaaaaaa') %>
   forward: false
+
+alias:
+  type: alias_address
+  domain: examplecom
+  email: alias@example.com
+  enabled: true
+  alias_target: postmaster@example.com
+
+drop:
+  type: blackhole_address
+  domain: examplecom
+  email: drop@example.com
+  enabled: true
