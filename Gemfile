@@ -31,6 +31,9 @@ gem 'devise'
 # Helper for generating the breadcrumb navigation
 gem "breadcrumbs_on_rails"
 
+# Save blank values as NULL in the database
+gem "nilify_blanks"
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
