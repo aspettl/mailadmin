@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     scope '/api/v1' do
       get 'backup', to: 'import_export_api#backup'
       get 'export', to: 'import_export_api#export'
+      post 'import', to: 'import_export_api#import'
     end
   end
   root to: 'dashboards#show'
