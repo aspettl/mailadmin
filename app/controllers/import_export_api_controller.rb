@@ -23,7 +23,7 @@ class ImportExportApiController < ApplicationController
       required_api_token = ENV['API_TOKEN']
       obtained_api_token = BEARER_REGEXP.match(request.headers['Authorization']) { |m| m[1] }
       if required_api_token.blank?
-        render json: { error: "Use of API is not configured." }, status: 400
+        render json: { error: "Use of API is not configured." }, status: 500
       else
         render json: { error: "Authorization failed: a valid API token is required." }, status: 401 unless required_api_token == obtained_api_token
       end

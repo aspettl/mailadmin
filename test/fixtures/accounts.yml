@@ -24,6 +24,13 @@ alias:
   enabled: true
   alias_target: postmaster@example.com
 
+disabled_alias:
+  type: alias_address
+  domain: examplecom
+  email: disabled-alias@example.com
+  enabled: false
+  alias_target: postmaster@example.com
+
 drop:
   type: blackhole_address
   domain: examplecom

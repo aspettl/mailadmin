@@ -21,3 +21,10 @@ examplenet:
   domain: example.net
   enabled: true
   alias_target: example.com
+
+exampleinfo:
+  user: alice
+  type: alias_domain
+  domain: example.info
+  enabled: false
+  alias_target: example.com
