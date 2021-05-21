@@ -11,7 +11,9 @@ module GlobalConfiguration
 
   class API
     @@token = ENV.fetch('API_TOKEN', nil)
+    @@configreload_webhook = ENV.fetch('CONFIGRELOAD_WEBHOOK', nil)
 
     cattr_accessor :token
+    cattr_accessor :configreload_webhook
   end
 end

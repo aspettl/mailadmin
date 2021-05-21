@@ -1,5 +1,9 @@
 <h1>Dashboard</h1>
 
+<h2>Mailserver configuration</h2>
+
+<h3>Overview</h3>
+
 <p>
   You have <%= @local_domains_count %> domains with
 </p>
@@ -19,7 +23,18 @@
   » <%= link_to 'Manage domains', domains_path %>
 </p>
 
-<h2>Required domain configuration</h2>
+<% if @configreload_webhook %>
+  <h3>Reload</h3>
+
+  <p>
+    After making changes, you need to trigger a reload of the mailserver so that it will be used immediately.<br />
+    » <%= link_to 'Reload configuration', configreload_dashboard_path, method: :post %>
+  </p>
+<% end %>
+
+<h2>More information</h2>
+
+<h3>Required domain configuration</h3>
 
 <p>
   DNS records:
@@ -29,7 +44,7 @@
 @   3600    IN  TXT     "v=spf1 include:<%= @mailserver_hostname %> ~all"
 </pre>
 
-<h2>Required mail client configuration</h2>
+<h3>Required mail client configuration</h3>
 
 <p>
   Recommended configuration:

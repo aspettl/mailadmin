@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
-  resource :dashboard, only: [:show]
+  resource :dashboard, only: [:show] do
+    post 'configreload'
+  end
   resources :domains do
     resources :accounts
   end
