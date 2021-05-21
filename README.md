@@ -1,24 +1,24 @@
-# README
+# Mailadmin
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Production deployment with Docker
 
-Things you may want to cover:
+Create a database user and an empty database. We use the docker image - inspect
+its environment variables, which need to be customized. When the container starts,
+it will automatically apply database migrations.
 
-* Ruby version
+## User setup in production environment
 
-* System dependencies
+To create a user, "docker exec" or "kubectl exec" into the container and run
 
-* Configuration
+```
+bundle exec rails console
+```
 
-* Database creation
+Then, use
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+User.create! do |u|
+  u.email    = 'yourname@example.com'
+  u.password = 'passwordwithatleast10chars'
+end
+```
