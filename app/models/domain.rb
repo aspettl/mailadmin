@@ -9,6 +9,13 @@ class Domain < ApplicationRecord
   validates :user_id, presence: true
   validates :type, inclusion: { in: types.keys }
   validates :domain, uniqueness: true, format: { with: DOMAIN_REGEXP }, length: { maximum: 255 }
+  validates_each :domain do |record, attr, value|
+    parts = value.split('.')
+    (1...parts.length).each do |start|
+      domain = parts[start..].join('.')
+      record.errors.add(attr, "is a subdomain of already existing '#{domain}' from a different user") unless Domain.where(domain: domain).where.not(user_id: record.user_id).empty?
+    end
+  end
   validates :enabled, inclusion: { in: [ true, false ] }
   validates :catchall, inclusion: { in: [ true, false ] }
   validates :catchall_target, presence: { if: :catchall }, format: { with: Account::EMAIL_REGEXP, allow_blank: true }, length: { maximum: 255 }, if: :local_domain?
