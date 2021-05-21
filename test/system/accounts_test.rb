@@ -17,7 +17,7 @@ class AccountsTest < ApplicationSystemTestCase
 
   test "creating a account" do
     visit domain_accounts_url(@domain)
-    click_on "New account"
+    click_on "New account", match: :first
 
     fill_in "Email", with: 'new-address@example.com'
     fill_in "Password", with: 'min10characters'

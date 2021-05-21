@@ -17,7 +17,7 @@ class DomainsTest < ApplicationSystemTestCase
 
   test "creating a domain" do
     visit domains_url
-    click_on "New domain"
+    click_on "New domain", match: :first
 
     fill_in "Domain", with: 'new-domain.abc'
     check "Enabled"

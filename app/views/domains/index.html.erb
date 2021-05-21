@@ -1,5 +1,9 @@
 <h1>Domains</h1>
 
+<p>
+  » <%= link_to 'New domain', new_domain_path %>
+</p>
+
 <table>
   <thead>
     <tr>
@@ -17,18 +21,18 @@
       <tr>
         <td><%= domain.domain %></td>
         <td><%= domain.type.humanize %></td>
-        <td><%= domain.enabled %></td>
-        <td><%= domain.catchall %></td>
+        <td class="tableBoolean"><%= domain.enabled ? 'yes' : 'no' %></td>
+        <td class="tableBoolean"><%= domain.local_domain? ? (domain.catchall ? 'yes' : 'no') : '' %></td>
         <td><%= domain.alias_domain? ? truncate(domain.alias_target, length: 50) : '' %></td>
-        <td><%= link_to 'Show', domain %></td>
-        <td><%= link_to 'Edit', edit_domain_path(domain) %></td>
-        <td><%= link_to_if domain.local_domain?, 'Manage accounts', domain_accounts_path(domain) %></td>
-        <td><%= link_to 'Destroy', domain, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="tableActions"><%= link_to 'Show', domain %></td>
+        <td class="tableActions"><%= link_to 'Edit', edit_domain_path(domain) %></td>
+        <td class="tableActions"><%= link_to_if domain.local_domain?, 'Manage accounts', domain_accounts_path(domain) %></td>
+        <td class="tableActions"><%= link_to 'Destroy', domain, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New domain', new_domain_path %>
+<p>
+  » <%= link_to 'New domain', new_domain_path %>
+</p>

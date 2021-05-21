@@ -14,5 +14,6 @@ class DashboardsController < ApplicationController
     @blackhole_addresses_count = @user.accounts.where(type: Account.types[:blackhole_address]).count
 
     @mailserver_hostname = ENV['MAILSERVER_HOSTNAME'] || Socket.gethostname
+    @webmail_hostname = ENV['WEBMAIL_HOSTNAME'] || @mailserver_hostname
   end
 end

@@ -1,5 +1,9 @@
 <h1>Accounts</h1>
 
+<p>
+  » <%= link_to 'New account', new_domain_account_path(@domain) %>
+</p>
+
 <table>
   <thead>
     <tr>
@@ -16,16 +20,16 @@
       <tr>
         <td><%= account.email %></td>
         <td><%= account.type.humanize %></td>
-        <td><%= account.enabled %></td>
+        <td class="tableBoolean"><%= account.enabled ? 'yes' : 'no' %></td>
         <td><%= truncate(account.alias_address? ? account.alias_target : (account.forward ? account.forward_to : ''), length: 50) %></td>
-        <td><%= link_to 'Show', [@domain, account] %></td>
-        <td><%= link_to 'Edit', edit_domain_account_path(@domain, account) %></td>
-        <td><%= link_to 'Destroy', [@domain, account], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="tableActions"><%= link_to 'Show', [@domain, account] %></td>
+        <td class="tableActions"><%= link_to 'Edit', edit_domain_account_path(@domain, account) %></td>
+        <td class="tableActions"><%= link_to 'Destroy', [@domain, account], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New account', new_domain_account_path(@domain) %>
+<p>
+  » <%= link_to 'New account', new_domain_account_path(@domain) %>
+</p>

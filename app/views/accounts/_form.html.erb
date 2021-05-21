@@ -14,12 +14,17 @@
   <div class="field">
     <%= form.label :type %>
     <%= form.select :type, Account.types.keys.map { |t| [t.humanize, t] }, {}, disabled: !account.new_record? %>
-    (immutable, cannot be changed after creation)
+    <% if account.new_record? %>
+      (immutable, cannot be changed after creation)
+    <% end %>
   </div>
 
   <div class="field">
     <%= form.label :email %>
     <%= form.text_field :email, disabled: !account.new_record?, autofocus: account.new_record? %>
+    <% if account.new_record? %>
+      (immutable, cannot be changed after creation)
+    <% end %>
   </div>
 
   <div class="field">
@@ -28,6 +33,9 @@
   </div>
 
   <% if account.new_record? || account.local_mailbox? %>
+    <% if account.new_record? %>
+      <p><strong>Only when local mailbox:</strong></p>
+    <% end %>
     <div class="field">
       <%= form.label :password %>
       <%= form.password_field :password, autofocus: !account.new_record? %>
@@ -48,6 +56,9 @@
   <% end %>
 
   <% if account.new_record? || account.alias_address? %>
+    <% if account.new_record? %>
+      <p><strong>Only when alias address:</strong></p>
+    <% end %>
     <div class="field">
       <%= form.label :alias_target %>
       <%= form.text_field :alias_target, disabled: !account.new_record? && !account.alias_address? %>

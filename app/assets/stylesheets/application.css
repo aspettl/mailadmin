@@ -17,7 +17,7 @@
 body {
   background-color: #fff;
   color: #333;
-  margin: 33px;
+  margin: 2em;
 }
 
 body,
@@ -26,14 +26,13 @@ ol,
 ul,
 td {
   font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
-  line-height: 18px;
+  font-size: 100%;
 }
 
 pre {
   background-color: #eee;
-  padding: 10px;
-  font-size: 11px;
+  padding: 1ex;
+  font-size: 100%;
 }
 
 a {
@@ -41,7 +40,7 @@ a {
 }
 
 a:visited {
-  color: #666;
+  color: #000;
 }
 
 a:hover {
@@ -49,17 +48,30 @@ a:hover {
   background-color: #000;
 }
 
-th {
-  padding-bottom: 5px;
+tr:hover {
+  background-color: #ccc;
 }
 
-td {
-  padding: 0 5px 7px;
+th {
+  background-color: #ccc;
+}
+
+th, td {
+  padding: 0.2em 0.4em;
+  vertical-align: middle;
+}
+
+td.tableBoolean {
+  text-align: center;
+}
+
+td.tableActions {
+  color: gray;
 }
 
 div.field,
 div.actions {
-  margin-bottom: 10px;
+  margin-bottom: 1em;
 }
 
 #login_bar {
@@ -79,35 +91,38 @@ div.actions {
   color: red;
 }
 
+label {
+  display: inline-block;
+  width: 10em;
+}
+
 .field_with_errors {
-  padding: 2px;
-  background-color: red;
-  display: table;
+  display: inline;
+}
+
+.field_with_errors label {
+  color: red;
 }
 
 #error_explanation {
-  width: 450px;
-  border: 2px solid red;
-  padding: 7px 7px 0;
-  margin-bottom: 20px;
+  width: 30em;
+  border: 0.25ex solid red;
+  padding: 1ex 1ex 0;
+  margin-bottom: 1em;
   background-color: #f0f0f0;
 }
 
 #error_explanation h2 {
   text-align: left;
-  font-weight: bold;
-  padding: 5px 5px 5px 15px;
-  font-size: 12px;
-  margin: -7px -7px 0;
+  padding: 0.5ex 0.5ex 0.5ex 1.5ex;
+  font-size: 100%;
+  font-weight: normal;
+  margin: -1ex -1ex 0;
   background-color: #c00;
   color: #fff;
 }
 
 #error_explanation ul li {
-  font-size: 12px;
+  font-size: 90%;
   list-style: square;
-}
-
-label {
-  display: block;
 }
