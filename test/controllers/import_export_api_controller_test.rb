@@ -58,6 +58,6 @@ class ImportExportApiControllerTest < ActionDispatch::IntegrationTest
 
   private
     def set_required_token(required)
-      ENV['API_TOKEN'] = required
+      GlobalConfiguration::API.token = required
     end
 end

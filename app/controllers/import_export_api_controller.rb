@@ -119,7 +119,7 @@ class ImportExportApiController < ApplicationController
 
   private
     def authenticate_via_token!
-      required_api_token = ENV['API_TOKEN']
+      required_api_token = GlobalConfiguration::API.token
       obtained_api_token = BEARER_REGEXP.match(request.headers['Authorization']) { |m| m[1] }
       if required_api_token.blank?
         render_error("Use of API is not configured.", 500, false)
