@@ -10,7 +10,7 @@ class Domain < ApplicationRecord
   validates :type, inclusion: { in: types.keys }
   validates :domain, uniqueness: true, format: { with: DOMAIN_REGEXP }, length: { maximum: 255 }
   validates_each :domain do |record, attr, value|
-    parts = value.split('.')
+    parts = (value || '').split('.')
     (1...parts.length).each do |start|
       domain = parts[start..].join('.')
       record.errors.add(attr, "is a subdomain of already existing '#{domain}' from a different user") unless Domain.where(domain: domain).where.not(user_id: record.user_id).empty?
