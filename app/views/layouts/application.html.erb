@@ -11,12 +11,17 @@
   </head>
 
   <body>
-    <% if !!@user.id %>
-    <p id="login_bar">You are logged in as <%= @user.email %>. <%= link_to 'Log out', destroy_user_session_path, method: :delete %></p>
+    <% if @user.email? %>
+      <p id="login_bar">
+        You are logged in as <%= @user.email %>.
+        <% unless @login_via_http_auth %>
+          <%= link_to 'Log out', destroy_user_session_path, method: :delete %>
+        <% end %>
+      </p>
     <% end %>
 
     <% unless breadcrumbs_on_rails.empty? %>
-    <p id="breadcrumbs">» <%= render_breadcrumbs %></p>
+      <p id="breadcrumbs">» <%= render_breadcrumbs %></p>
     <% end %>
 
     <p id="notice"><%= notice %></p>
