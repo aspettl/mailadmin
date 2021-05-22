@@ -21,7 +21,9 @@ class Account < ApplicationRecord
   validates :forward_to, inclusion: { in: [ nil, '' ], message: 'must be empty when this is an alias address' }, unless: :local_mailbox?
   validates :alias_target, presence: true, length: { maximum: 255 }, if: :alias_address?
   validates_each :alias_target, :allow_blank => true, if: :alias_address? do |record, attr, value|
-    record.errors.add(attr, 'is invalid') unless value.split(',', 50).all? { |element| element.match?(EMAIL_REGEXP) }
+    targets = value.split(',', 50)
+    record.errors.add(attr, 'is invalid') if targets.any? { |element| !element.match?(EMAIL_REGEXP) }
+    record.errors.add(attr, 'must not redirect to itself') if targets.any? { |element| element == record.email }
   end
   validates :alias_target, inclusion: { in: [ nil, '' ], message: 'must be empty when this is not an alias address' }, unless: :alias_address?
 
