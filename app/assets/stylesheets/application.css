@@ -96,6 +96,10 @@ label {
   width: 10em;
 }
 
+input[type=text], input[type=email], input[type=password] {
+  width: 20em;
+}
+
 .field_with_errors {
   display: inline;
 }
@@ -105,7 +109,7 @@ label {
 }
 
 #error_explanation {
-  width: 30em;
+  width: 50em;
   border: 0.25ex solid red;
   padding: 1ex 1ex 0;
   margin-bottom: 1em;
