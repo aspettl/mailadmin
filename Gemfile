@@ -28,6 +28,9 @@ gem 'jbuilder', '~> 2.7'
 # Authentication framework
 gem 'devise'
 
+# We use the bcrypt library to generate account passwords
+gem 'bcrypt'
+
 # Helper for generating the breadcrumb navigation
 gem "breadcrumbs_on_rails"
 

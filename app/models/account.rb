@@ -1,3 +1,5 @@
+require 'bcrypt'
+
 class Account < ApplicationRecord
   EMAIL_REGEXP = /\A[a-zA-Z0-9.+=_~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\z/
 
@@ -51,11 +53,6 @@ class Account < ApplicationRecord
 
   private
     def crypt_password
-      self.crypt = sha512crypt(password) unless password.blank?
-    end
-
-    def sha512crypt(password)
-      salt = SecureRandom.hex(8)
-      password.crypt('$6$' + salt)
+      self.crypt = BCrypt::Password.create(password) unless password.blank?
     end
 end
