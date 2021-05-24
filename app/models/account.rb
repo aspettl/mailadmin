@@ -32,12 +32,20 @@ class Account < ApplicationRecord
   def crypt_hash_method
     if !self.crypt
       nil
+    elsif self.crypt.length == 13
+      'DES-CRYPT'
     elsif self.crypt.starts_with?('$1')
       'MD5-CRYPT'
+    elsif self.crypt.starts_with?('$5')
+      'SHA256-CRYPT'
     elsif self.crypt.starts_with?('$6')
       'SHA512-CRYPT'
+    elsif self.crypt.starts_with?('$2')
+      'BCRYPT'
+    elsif self.crypt.starts_with?('$argon2')
+      'ARGON2'
     else
-      'DES-CRYPT'
+      :unknown
     end
   end
 
