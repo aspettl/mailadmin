@@ -4,13 +4,13 @@ class ImportExportApiController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :authenticate_via_token!
 
-  # GET /api/backup.json
+  # GET /api/v1/backup.json
   def backup
     @domains = Domain.order(:id).all
     @accounts = Account.order(:domain_id, :id).all
   end
 
-  # GET /api/export.json
+  # GET /api/v1/export.json
   def export
     @local_domains = Domain.where(type: Domain.types[:local_domain], enabled: true).order(:id).all
     @alias_domains = Domain.where(type: Domain.types[:alias_domain], enabled: true).order(:id).all
@@ -19,7 +19,7 @@ class ImportExportApiController < ApplicationController
     @blackhole_addresses = Account.where(type: Account.types[:blackhole_address], enabled: true).order(:domain_id, :id).all
   end
 
-  # POST /api/import.json
+  # POST /api/v1/import.json
   def import
     catch(:abort) do
       user = User.find_by(email: params[:user])
