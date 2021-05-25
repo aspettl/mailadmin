@@ -12,6 +12,12 @@ class RoundcubeApiController < ApplicationController
     @account.password = params[:new_password]
     if @account.save
       render plain: 'Account password has been updated.', status: 200
+
+      begin
+        Net::HTTP.get_response(URI(GlobalConfiguration::API.configreload_webhook)) unless GlobalConfiguration::API.configreload_webhook.blank?
+      rescue Exception => e
+        # nothing sensible that we can do here
+      end
     else
       render plain: 'Validation failed! Account password not updated.', status: 400
     end
