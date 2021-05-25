@@ -6,11 +6,14 @@ Rails.application.routes.draw do
   resources :domains do
     resources :accounts
   end
-  defaults format: :json do
-    scope '/api/v1' do
+  scope '/api/v1' do
+    defaults format: :json do
       get 'backup', to: 'import_export_api#backup'
       get 'export', to: 'import_export_api#export'
       post 'import', to: 'import_export_api#import'
+    end
+    defaults format: :text do
+      post 'roundcube_password', to: 'roundcube_api#update_password'
     end
   end
   root to: 'dashboards#show'
