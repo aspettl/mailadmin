@@ -51,6 +51,11 @@ class Account < ApplicationRecord
     end
   end
 
+  def matches_crypted_password?(password)
+    return false if password.blank? or self.crypt.blank?
+    password.crypt(self.crypt) == self.crypt
+  end
+
   private
     def crypt_password
       self.crypt = BCrypt::Password.create(password) unless password.blank?
