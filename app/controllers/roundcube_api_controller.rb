@@ -1,6 +1,9 @@
+require './lib/configreload'
+
 class RoundcubeApiController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :set_account
+  before_action :get_configreload
 
   # POST /api/v1/roundcube_password.txt
   def update_password
@@ -14,7 +17,7 @@ class RoundcubeApiController < ApplicationController
       render plain: 'Account password has been updated.', status: 200
 
       begin
-        Net::HTTP.get_response(URI(GlobalConfiguration::API.configreload_webhook)) unless GlobalConfiguration::API.configreload_webhook.blank?
+        @configreload.trigger!
       rescue Exception => e
         # nothing sensible that we can do here
       end
@@ -27,5 +30,9 @@ class RoundcubeApiController < ApplicationController
     def set_account
       @account = Account.find_by(email: params[:email])
       render plain: "Account does not exist or current password is wrong!", status: 401 if @account.nil? or !@account.matches_crypted_password?(params[:current_password])
+    end
+
+    def get_configreload
+      @configreload = Configreload.new
     end
 end

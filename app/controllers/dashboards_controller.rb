@@ -1,6 +1,9 @@
+require './lib/configreload'
+
 class DashboardsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user
+  before_action :get_configreload
 
   before_action :add_dashboard_breadcrumb
 
@@ -13,17 +16,17 @@ class DashboardsController < ApplicationController
 
     @mailserver_hostname = GlobalConfiguration::Hostnames.mailserver
     @webmail_hostname = GlobalConfiguration::Hostnames.webmail
-    @configreload_webhook = GlobalConfiguration::API.configreload_webhook.present?
+    @configreload_configured = @configreload.configured?
   end
 
   def configreload
-    if GlobalConfiguration::API.configreload_webhook.blank?
+    unless @configreload.configured?
       respond_with_error('Configuration reload cannot be triggered, it is not configured.')
       return
     end
 
     begin
-      Net::HTTP.get_response(URI(GlobalConfiguration::API.configreload_webhook))
+      @configreload.trigger!
 
       respond_to do |format|
         format.html { redirect_to dashboard_url, notice: "Configuration reload has been triggered." }
@@ -35,6 +38,10 @@ class DashboardsController < ApplicationController
   end
 
   private
+    def get_configreload
+      @configreload = Configreload.new
+    end
+
     def respond_with_error(message)
       respond_to do |format|
         format.html { redirect_to dashboard_url, alert: message }
