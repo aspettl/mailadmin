@@ -62,6 +62,6 @@ class Account < ApplicationRecord
 
   private
     def crypt_password
-      self.crypt = BCrypt::Password.create(password) unless password.blank?
+      self.crypt = BCrypt::Password.create(self.password) unless self.password.blank? or (self.crypt_hash_method == 'BCRYPT' and self.password_unchanged?)
     end
 end
