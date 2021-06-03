@@ -17,7 +17,7 @@ class RoundcubeApiController < ApplicationController
       render plain: 'Account password has been updated.', status: 200
 
       begin
-        @configreload.trigger!
+        @configreload.trigger! unless params[:new_password] == params[:current_password]
       rescue Exception => e
         # nothing sensible that we can do here
       end
