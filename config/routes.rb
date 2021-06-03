@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   end
   scope '/api/v1' do
     defaults format: :json do
+      get 'health', to: 'health_api#show'
       get 'backup', to: 'import_export_api#backup'
       get 'export', to: 'import_export_api#export'
       post 'import', to: 'import_export_api#import'
