@@ -61,7 +61,7 @@ th, td {
   vertical-align: middle;
 }
 
-td.tableBoolean {
+td.tableBoolean, td.tableEnum {
   text-align: center;
 }
 

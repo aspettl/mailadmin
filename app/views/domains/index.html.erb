@@ -20,7 +20,7 @@
     <% @domains.each do |domain| %>
       <tr>
         <td><%= domain.domain %></td>
-        <td><%= domain.type.humanize %></td>
+        <td class="tableEnum"><%= domain.type.humanize %></td>
         <td class="tableBoolean"><%= domain.enabled ? 'yes' : 'no' %></td>
         <td class="tableBoolean"><%= domain.local_domain? ? (domain.catchall ? 'yes' : 'no') : '' %></td>
         <td><%= domain.alias_domain? ? truncate(domain.alias_target, length: 50) : '' %></td>
