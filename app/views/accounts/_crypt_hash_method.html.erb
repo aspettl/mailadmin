@@ -1,0 +1,7 @@
+<% if crypt_hash_method.blank? or Account::MODERN_CRYPT_METHODS.include?(crypt_hash_method) %>
+  <%= crypt_hash_method %>
+<% else %>
+  <span class="legacy-password-method" title="This is not a modern hash method. Please change the password (or set the same one again)!">
+    <%= crypt_hash_method %>
+  </span>
+<% end %>

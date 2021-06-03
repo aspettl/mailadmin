@@ -18,7 +18,7 @@
 <% if @account.local_mailbox? %>
   <p>
     <strong>Password hash method:</strong>
-    <%= @account.crypt_hash_method %>
+    <%= render 'crypt_hash_method', crypt_hash_method: @account.crypt_hash_method %>
   </p>
 
   <p>

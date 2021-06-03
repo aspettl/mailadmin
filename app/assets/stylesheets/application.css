@@ -74,6 +74,15 @@ div.actions {
   margin-bottom: 1em;
 }
 
+.legacy-password-method::after {
+  content: "!";
+  font-weight: bold;
+  background-color: red;
+  color: white;
+  padding: 0 0.4em;
+  border-radius: 0.5em;
+}
+
 #login_bar {
   text-align: right;
 }

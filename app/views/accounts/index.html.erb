@@ -22,7 +22,7 @@
         <td><%= account.email %></td>
         <td class="tableEnum"><%= account.type.humanize %></td>
         <td class="tableBoolean"><%= account.enabled ? 'yes' : 'no' %></td>
-        <td class="tableEnum"><%= account.crypt_hash_method %></td>
+        <td class="tableEnum"><%= render 'crypt_hash_method', crypt_hash_method: account.crypt_hash_method %></td>
         <td><%= truncate(account.alias_address? ? account.alias_target : (account.forward ? account.forward_to : ''), length: 50) %></td>
         <td class="tableActions"><%= link_to 'Show', [@domain, account] %></td>
         <td class="tableActions"><%= link_to 'Edit', edit_domain_account_path(@domain, account) %></td>

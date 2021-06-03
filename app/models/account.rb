@@ -2,6 +2,7 @@ require 'bcrypt'
 
 class Account < ApplicationRecord
   EMAIL_REGEXP = /\A[a-zA-Z0-9.+=_~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\z/
+  MODERN_CRYPT_METHODS = ['SHA256-CRYPT', 'SHA512-CRYPT', 'BCRYPT', 'ARGON2']
 
   belongs_to :domain
 
