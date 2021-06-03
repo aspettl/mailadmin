@@ -3,7 +3,7 @@ version: '3'
 services:
   web:
     build: .
-    image: registry.k8s.spettl.net/mailadmin:0.0.5
+    image: registry.k8s.spettl.net/mailadmin:0.0.6
     environment:
       - DATABASE_URL=mysql2://mailadmin:@localhost/mailadmin_production
       - MAILSERVER_HOSTNAME=mail.example.com
