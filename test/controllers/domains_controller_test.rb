@@ -5,6 +5,7 @@ class DomainsControllerTest < ActionDispatch::IntegrationTest
 
   setup do
     @domain = domains(:examplecom)
+    @destroyable_domain = domains(:exampleorg)
     sign_in users(:alice)
   end
 
@@ -49,9 +50,17 @@ class DomainsControllerTest < ActionDispatch::IntegrationTest
 
   test "should destroy domain" do
     assert_difference('Domain.count', -1) do
-      delete domain_url(@domain)
+      delete domain_url(@destroyable_domain)
     end
 
     assert_redirected_to domains_url
+  end
+
+  test "should not destroy domain that has aliases" do
+    assert_no_difference('Domain.count') do
+      delete domain_url(@domain)
+    end
+
+    assert_redirected_to domain_url(@domain)
   end
 end

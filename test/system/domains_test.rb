@@ -3,6 +3,7 @@ require "application_system_test_case"
 class DomainsTest < ApplicationSystemTestCase
   setup do
     @domain = domains(:examplecom)
+    @destroyable_domain = domains(:exampleorg)
 
     visit domains_url
     fill_in "Email", with: users(:alice).email
@@ -39,7 +40,7 @@ class DomainsTest < ApplicationSystemTestCase
   end
 
   test "destroying a domain" do
-    visit domains_url
+    visit domain_url(@destroyable_domain)
     page.accept_confirm do
       click_on "Destroy", match: :first
     end

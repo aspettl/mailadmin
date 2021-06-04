@@ -61,6 +61,14 @@ class DomainsController < ApplicationController
 
   # DELETE /domains/1 or /domains/1.json
   def destroy
+    unless @domain.find_alias_domains.empty?
+      respond_to do |format|
+        format.html { redirect_to domain_url(@domain), alert: "Domain not destroyed, there are known alias domains!" }
+        format.json { render json: { error: "Domain not destroyed, there are known alias domains!" }, status: :unprocessable_entity }
+      end
+      return
+    end
+
     @domain.destroy
     respond_to do |format|
       format.html { redirect_to domains_url, notice: "Domain was successfully destroyed." }
