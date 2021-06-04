@@ -35,6 +35,19 @@
 <% end %>
 
 <p>
+  <strong>Known aliases:</strong>
+  <% if @alias_domains.empty? %>
+    none
+  <% else %>
+    <ul>
+      <% @alias_domains.each do |alias_domain| %>
+        <li><%= alias_domain.domain %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</p>
+
+<p>
   <strong>Actions:</strong>
   <%= link_to 'Edit domain', edit_domain_path(@domain) %> |
   <%= link_to_if @domain.local_domain?, 'Manage accounts', domain_accounts_path(@domain) %> |

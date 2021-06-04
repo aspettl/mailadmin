@@ -16,6 +16,7 @@ class DomainsController < ApplicationController
 
   # GET /domains/1 or /domains/1.json
   def show
+    @alias_domains = @domain.find_alias_domains
   end
 
   # GET /domains/new
