@@ -65,6 +65,14 @@ class AccountsController < ApplicationController
 
   # DELETE /accounts/1 or /accounts/1.json
   def destroy
+    unless @account.find_alias_accounts.empty? and @account.find_catchall_domains.empty?
+      respond_to do |format|
+        format.html { redirect_to domain_account_url(@domain, @account), alert: "Account not destroyed, there are known alias addresses!" }
+        format.json { render json: { error: "Account not destroyed, there are known alias addresses!" }, status: :unprocessable_entity }
+      end
+      return
+    end
+
     @account.destroy
     respond_to do |format|
       format.html { redirect_to domain_accounts_url(@domain), notice: "Account was successfully destroyed." }

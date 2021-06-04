@@ -6,6 +6,7 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @domain = domains(:examplecom)
     @account = accounts(:postmaster)
+    @destroyable_account = accounts(:disabled_alias)
     sign_in users(:alice)
   end
 
@@ -50,9 +51,17 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
 
   test "should destroy account" do
     assert_difference('Account.count', -1) do
-      delete domain_account_url(@domain, @account)
+      delete domain_account_url(@domain, @destroyable_account)
     end
 
     assert_redirected_to domain_accounts_url(@domain)
+  end
+
+  test "should not destroy account that has known alias addresses" do
+    assert_no_difference('Account.count') do
+      delete domain_account_url(@domain, @account)
+    end
+
+    assert_redirected_to domain_account_url(@domain, @account)
   end
 end
