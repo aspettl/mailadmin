@@ -19,6 +19,7 @@ class AccountsController < ApplicationController
   # GET /accounts/1 or /accounts/1.json
   def show
     @alias_accounts = @account.find_alias_accounts
+    @catchall_domains = @account.find_catchall_domains
   end
 
   # GET /accounts/new

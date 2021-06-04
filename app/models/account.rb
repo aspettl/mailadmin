@@ -65,6 +65,10 @@ class Account < ApplicationRecord
     Account.where(type: Account.types[:local_mailbox], enabled: true, forward: true, forward_to: self.email) + Account.where(type: Account.types[:alias_address], enabled: true, alias_target: self.email)
   end
 
+  def find_catchall_domains
+    Domain.where(type: Domain.types[:local_domain], enabled: true, catchall: true, catchall_target: self.email)
+  end
+
   private
     def crypt_password
       self.crypt = BCrypt::Password.create(self.password) unless self.password.blank? or (self.crypt_hash_method == 'BCRYPT' and self.password_unchanged?)

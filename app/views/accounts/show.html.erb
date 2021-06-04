@@ -41,12 +41,15 @@
 
 <p>
   <strong>Known aliases:</strong>
-  <% if @alias_accounts.empty? %>
+  <% if @alias_accounts.empty? and @catchall_domains.empty? %>
     none
   <% else %>
     <ul>
       <% @alias_accounts.each do |alias_account| %>
         <li><%= alias_account.email %></li>
+      <% end %>
+      <% @catchall_domains.each do |catchall_domain| %>
+        <li>*@<%= catchall_domain.domain %></li>
       <% end %>
     </ul>
   <% end %>
