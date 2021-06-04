@@ -61,6 +61,10 @@ class Account < ApplicationRecord
     self.matches_crypted_password?(self.password)
   end
 
+  def find_alias_accounts
+    Account.where(type: Account.types[:local_mailbox], enabled: true, forward: true, forward_to: self.email) + Account.where(type: Account.types[:alias_address], enabled: true, alias_target: self.email)
+  end
+
   private
     def crypt_password
       self.crypt = BCrypt::Password.create(self.password) unless self.password.blank? or (self.crypt_hash_method == 'BCRYPT' and self.password_unchanged?)

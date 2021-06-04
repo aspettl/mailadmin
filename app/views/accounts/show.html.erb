@@ -40,6 +40,19 @@
 <% end %>
 
 <p>
+  <strong>Known aliases:</strong>
+  <% if @alias_accounts.empty? %>
+    none
+  <% else %>
+    <ul>
+      <% @alias_accounts.each do |alias_account| %>
+        <li><%= alias_account.email %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</p>
+
+<p>
   <strong>Actions:</strong>
   <%= link_to 'Edit account', edit_domain_account_path(@domain, @account) %> |
   <%= link_to 'Destroy account', [@domain, @account], method: :delete, data: { confirm: 'Are you sure?' } %>

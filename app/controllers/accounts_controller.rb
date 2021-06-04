@@ -18,6 +18,7 @@ class AccountsController < ApplicationController
 
   # GET /accounts/1 or /accounts/1.json
   def show
+    @alias_accounts = @account.find_alias_accounts
   end
 
   # GET /accounts/new
