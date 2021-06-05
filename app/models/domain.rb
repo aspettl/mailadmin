@@ -23,7 +23,7 @@ class Domain < ApplicationRecord
   validates :alias_target, format: { with: DOMAIN_REGEXP }, length: { maximum: 255 }, if: :alias_domain?
   validates :alias_target, inclusion: { in: [ nil, '' ], message: 'must be empty when this is not an alias domain' }, unless: :alias_domain?
 
-  def find_alias_domains
-    Domain.where(type: Domain.types[:alias_domain], enabled: true, alias_target: self.domain)
+  def known_alias_domains
+    Domain.where(type: Domain.types[:alias_domain], enabled: true, alias_target: self.domain).order(:domain)
   end
 end

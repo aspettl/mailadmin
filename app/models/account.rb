@@ -61,12 +61,13 @@ class Account < ApplicationRecord
     self.matches_crypted_password?(self.password)
   end
 
-  def find_alias_accounts
-    Account.where(type: Account.types[:local_mailbox], enabled: true, forward: true, forward_to: self.email) + Account.where(type: Account.types[:alias_address], enabled: true, alias_target: self.email)
+  def known_alias_accounts
+    Account.where(type: Account.types[:local_mailbox], enabled: true, forward: true, forward_to: self.email)
+      .or(Account.where(type: Account.types[:alias_address], enabled: true, alias_target: self.email)).order(:email)
   end
 
-  def find_catchall_domains
-    Domain.where(type: Domain.types[:local_domain], enabled: true, catchall: true, catchall_target: self.email)
+  def known_catchall_domains
+    Domain.where(type: Domain.types[:local_domain], enabled: true, catchall: true, catchall_target: self.email).order(:domain)
   end
 
   private

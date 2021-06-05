@@ -11,12 +11,12 @@ class DomainsController < ApplicationController
 
   # GET /domains or /domains.json
   def index
-    @domains = current_user.domains.order(:domain).all
+    @domains = current_user.domains.order(:domain).load
   end
 
   # GET /domains/1 or /domains/1.json
   def show
-    @alias_domains = @domain.find_alias_domains
+    @alias_domains = @domain.known_alias_domains.load
   end
 
   # GET /domains/new
@@ -61,7 +61,7 @@ class DomainsController < ApplicationController
 
   # DELETE /domains/1 or /domains/1.json
   def destroy
-    unless @domain.find_alias_domains.empty?
+    unless @domain.known_alias_domains.empty?
       respond_to do |format|
         format.html { redirect_to domain_url(@domain), alert: "Domain not destroyed, there are known alias domains!" }
         format.json { render json: { error: "Domain not destroyed, there are known alias domains!" }, status: :unprocessable_entity }
