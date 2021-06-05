@@ -70,8 +70,8 @@ class DomainsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { redirect_to domain_url(@domain), alert: "Domain not destroyed, there are known alias domains!" }
-        format.json { render json: { error: "Domain not destroyed, there are known alias domains!" }, status: :unprocessable_entity }
+        format.html { redirect_to domain_url(@domain), alert: "Domain not destroyed, there are accounts or known alias domains!" }
+        format.json { render json: { error: "Domain not destroyed, there are accounts or known alias domains!" }, status: :unprocessable_entity }
       end
     end
   end

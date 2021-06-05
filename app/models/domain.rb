@@ -33,6 +33,6 @@ class Domain < ApplicationRecord
   memoize :known_alias_domains
 
   def can_destroy?
-    self.known_alias_domains.empty?
+    self.accounts.empty? and self.known_alias_domains.empty?
   end
 end
