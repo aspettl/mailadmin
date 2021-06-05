@@ -56,11 +56,19 @@ class DomainsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to domains_url
   end
 
-  test "should not destroy domain that has aliases" do
+  test "should not destroy domain that has accounts" do
     assert_no_difference('Domain.count') do
       delete domain_url(@domain)
     end
 
     assert_redirected_to domain_url(@domain)
+  end
+
+  test "should force-destroy domain that has accounts" do
+    assert_difference('Domain.count', -1) do
+      delete domain_url(@domain, force: "true")
+    end
+
+    assert_redirected_to domains_url
   end
 end

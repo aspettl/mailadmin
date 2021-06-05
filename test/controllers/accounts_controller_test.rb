@@ -64,4 +64,12 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to domain_account_url(@domain, @account)
   end
+
+  test "should force-destroy account that has known alias addresses" do
+    assert_difference('Account.count', -1) do
+      delete domain_account_url(@domain, @account, force: "true")
+    end
+
+    assert_redirected_to domain_accounts_url(@domain)
+  end
 end
