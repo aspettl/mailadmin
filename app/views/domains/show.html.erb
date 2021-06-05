@@ -36,11 +36,11 @@
 
 <p>
   <strong>Known aliases:</strong>
-  <% if @alias_domains.empty? %>
+  <% if @domain.known_alias_domains.empty? %>
     none
   <% else %>
     <ul>
-      <% @alias_domains.each do |alias_domain| %>
+      <% @domain.known_alias_domains.each do |alias_domain| %>
         <li><%= alias_domain.domain %></li>
       <% end %>
     </ul>
@@ -51,7 +51,8 @@
   <strong>Actions:</strong>
   <%= link_to 'Edit domain', edit_domain_path(@domain) %> |
   <%= link_to_if @domain.local_domain?, 'Manage accounts', domain_accounts_path(@domain) %> |
-  <%= link_to 'Destroy domain', @domain, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to 'Destroy domain', @domain, method: :delete, data: { confirm: 'Are you sure?' } %> |
+  <%= link_to_unless @domain.can_destroy?, 'Destroy domain (force)', domain_path(@domain, force: true), method: :delete, data: { confirm: 'Are you sure to force-delete this domain?' } %>
 </p>
 
 <br>

@@ -1,6 +1,9 @@
 require 'bcrypt'
+require 'memoist'
 
 class Account < ApplicationRecord
+  extend Memoist
+
   EMAIL_REGEXP = /\A[a-zA-Z0-9.+=_~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\z/
   MODERN_CRYPT_METHODS = ['SHA256-CRYPT', 'SHA512-CRYPT', 'BCRYPT', 'ARGON2']
 
@@ -65,9 +68,15 @@ class Account < ApplicationRecord
     Account.where(type: Account.types[:local_mailbox], enabled: true, forward: true, forward_to: self.email)
       .or(Account.where(type: Account.types[:alias_address], enabled: true, alias_target: self.email)).order(:email)
   end
+  memoize :known_alias_accounts
 
   def known_catchall_domains
     Domain.where(type: Domain.types[:local_domain], enabled: true, catchall: true, catchall_target: self.email).order(:domain)
+  end
+  memoize :known_catchall_domains
+
+  def can_destroy?
+    self.known_alias_accounts.empty? and self.known_catchall_domains.empty?
   end
 
   private

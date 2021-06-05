@@ -41,14 +41,14 @@
 
 <p>
   <strong>Known aliases:</strong>
-  <% if @alias_accounts.empty? and @catchall_domains.empty? %>
+  <% if @account.known_alias_accounts.empty? and @account.known_catchall_domains.empty? %>
     none
   <% else %>
     <ul>
-      <% @alias_accounts.each do |alias_account| %>
+      <% @account.known_alias_accounts.each do |alias_account| %>
         <li><%= alias_account.email %></li>
       <% end %>
-      <% @catchall_domains.each do |catchall_domain| %>
+      <% @account.known_catchall_domains.each do |catchall_domain| %>
         <li>*@<%= catchall_domain.domain %></li>
       <% end %>
     </ul>
@@ -58,7 +58,8 @@
 <p>
   <strong>Actions:</strong>
   <%= link_to 'Edit account', edit_domain_account_path(@domain, @account) %> |
-  <%= link_to 'Destroy account', [@domain, @account], method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to 'Destroy account', [@domain, @account], method: :delete, data: { confirm: 'Are you sure?' } %> |
+  <%= link_to_unless @account.can_destroy?, 'Destroy account (force)', domain_account_path(@domain, @account, force: true), method: :delete, data: { confirm: 'Are you sure to force-delete this account?' } %>
 </p>
 
 <br>

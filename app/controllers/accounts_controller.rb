@@ -18,8 +18,8 @@ class AccountsController < ApplicationController
 
   # GET /accounts/1 or /accounts/1.json
   def show
-    @alias_accounts = @account.known_alias_accounts.load
-    @catchall_domains = @account.known_catchall_domains.load
+    @account.known_alias_accounts.load
+    @account.known_catchall_domains.load
   end
 
   # GET /accounts/new
@@ -65,18 +65,17 @@ class AccountsController < ApplicationController
 
   # DELETE /accounts/1 or /accounts/1.json
   def destroy
-    unless @account.known_alias_accounts.empty? and @account.known_catchall_domains.empty?
+    if @account.can_destroy? or params[:force] == "true"
+      @account.destroy
+      respond_to do |format|
+        format.html { redirect_to domain_accounts_url(@domain), notice: "Account was successfully destroyed." }
+        format.json { head :no_content }
+      end
+    else
       respond_to do |format|
         format.html { redirect_to domain_account_url(@domain, @account), alert: "Account not destroyed, there are known alias addresses!" }
         format.json { render json: { error: "Account not destroyed, there are known alias addresses!" }, status: :unprocessable_entity }
       end
-      return
-    end
-
-    @account.destroy
-    respond_to do |format|
-      format.html { redirect_to domain_accounts_url(@domain), notice: "Account was successfully destroyed." }
-      format.json { head :no_content }
     end
   end
 

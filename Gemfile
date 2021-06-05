@@ -37,6 +37,9 @@ gem "breadcrumbs_on_rails"
 # Save blank values as NULL in the database
 gem "nilify_blanks"
 
+# Bring back memoize for Rails
+gem "memoist"
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 

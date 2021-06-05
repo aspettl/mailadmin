@@ -1,4 +1,8 @@
+require 'memoist'
+
 class Domain < ApplicationRecord
+  extend Memoist
+
   DOMAIN_REGEXP = /\A[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,10}\z/ix
 
   belongs_to :user
@@ -25,5 +29,10 @@ class Domain < ApplicationRecord
 
   def known_alias_domains
     Domain.where(type: Domain.types[:alias_domain], enabled: true, alias_target: self.domain).order(:domain)
+  end
+  memoize :known_alias_domains
+
+  def can_destroy?
+    self.known_alias_domains.empty?
   end
 end

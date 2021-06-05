@@ -16,7 +16,7 @@ class DomainsController < ApplicationController
 
   # GET /domains/1 or /domains/1.json
   def show
-    @alias_domains = @domain.known_alias_domains.load
+    @domain.known_alias_domains.load
   end
 
   # GET /domains/new
@@ -61,18 +61,17 @@ class DomainsController < ApplicationController
 
   # DELETE /domains/1 or /domains/1.json
   def destroy
-    unless @domain.known_alias_domains.empty?
+    if @domain.can_destroy? or params[:force] == "true"
+      @domain.destroy
+      respond_to do |format|
+        format.html { redirect_to domains_url, notice: "Domain was successfully destroyed." }
+        format.json { head :no_content }
+      end
+    else
       respond_to do |format|
         format.html { redirect_to domain_url(@domain), alert: "Domain not destroyed, there are known alias domains!" }
         format.json { render json: { error: "Domain not destroyed, there are known alias domains!" }, status: :unprocessable_entity }
       end
-      return
-    end
-
-    @domain.destroy
-    respond_to do |format|
-      format.html { redirect_to domains_url, notice: "Domain was successfully destroyed." }
-      format.json { head :no_content }
     end
   end
 
