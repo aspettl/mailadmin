@@ -17,6 +17,7 @@ class DomainsController < ApplicationController
   # GET /domains/1 or /domains/1.json
   def show
     @domain.known_alias_domains.load
+    @account_counts_by_type = @domain.accounts.group(:type).count if @domain.local_domain?
   end
 
   # GET /domains/new

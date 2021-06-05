@@ -34,6 +34,17 @@
   </p>
 <% end %>
 
+<% if @domain.local_domain? %>
+  <p>
+    <strong>Accounts:</strong>
+    <ul>
+      <% Account.types.keys.each do |type| %>
+        <li><%= @account_counts_by_type[type] || 0 %> <%= type.humanize.pluralize(@account_counts_by_type[type]) %></li>
+      <% end %>
+    </ul>
+  </p>
+<% end %>
+
 <p>
   <strong>Known aliases:</strong>
   <% if @domain.known_alias_domains.empty? %>
