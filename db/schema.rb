@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_18_175527) do
+ActiveRecord::Schema.define(version: 2021_06_05_094041) do
 
   create_table "accounts", charset: "utf8mb4", force: :cascade do |t|
     t.string "email"
@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(version: 2021_05_18_175527) do
     t.string "alias_target"
     t.index ["domain_id"], name: "index_accounts_on_domain_id"
     t.index ["email"], name: "index_accounts_on_email", unique: true
+    t.index ["type", "alias_target"], name: "index_accounts_on_type_and_alias_target"
+    t.index ["type", "forward", "forward_to"], name: "index_accounts_on_type_and_forward_and_forward_to"
   end
 
   create_table "domains", charset: "utf8mb4", force: :cascade do |t|
@@ -38,6 +40,7 @@ ActiveRecord::Schema.define(version: 2021_05_18_175527) do
     t.boolean "catchall", default: false, null: false
     t.string "catchall_target"
     t.index ["domain"], name: "index_domains_on_domain", unique: true
+    t.index ["type", "catchall", "catchall_target"], name: "index_domains_on_type_and_catchall_and_catchall_target"
     t.index ["user_id"], name: "index_domains_on_user_id"
   end
 
