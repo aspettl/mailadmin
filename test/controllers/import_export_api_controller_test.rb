@@ -58,6 +58,6 @@ class ImportExportApiControllerTest < ActionDispatch::IntegrationTest
 
   private
     def set_required_token(required)
-      GlobalConfiguration::API.token = required
+      Rails.configuration.api_token = required
     end
 end

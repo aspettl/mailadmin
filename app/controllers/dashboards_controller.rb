@@ -14,8 +14,8 @@ class DashboardsController < ApplicationController
     @alias_addresses_count = @user.accounts.where(type: Account.types[:alias_address]).count
     @blackhole_addresses_count = @user.accounts.where(type: Account.types[:blackhole_address]).count
 
-    @mailserver_hostname = GlobalConfiguration::Hostnames.mailserver
-    @webmail_hostname = GlobalConfiguration::Hostnames.webmail
+    @mailserver_hostname = Rails.configuration.mailserver_hostname
+    @webmail_hostname = Rails.configuration.webmail_hostname
     @configreload_configured = @configreload.configured?
   end
 

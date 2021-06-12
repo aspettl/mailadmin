@@ -18,5 +18,11 @@ module Mailadmin
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Custom application configuration
+    config.mailserver_hostname  = ENV.fetch('MAILSERVER_HOSTNAME') { Socket.gethostname }
+    config.webmail_hostname     = ENV.fetch('WEBMAIL_HOSTNAME', config.mailserver_hostname)
+    config.api_token            = ENV.fetch('API_TOKEN', nil)
+    config.configreload_webhook = ENV.fetch('CONFIGRELOAD_WEBHOOK', nil)
   end
 end
