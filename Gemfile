@@ -31,6 +31,9 @@ gem 'devise'
 # We use the bcrypt library to generate account passwords
 gem 'bcrypt'
 
+# We use the 'Have I been pwned?'-API to check passwords
+gem 'pwned'
+
 # Helper for generating the breadcrumb navigation
 gem "breadcrumbs_on_rails"
 

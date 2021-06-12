@@ -20,7 +20,7 @@ class Account < ApplicationRecord
     record.errors.add(attr, 'must be an account under the currently selected domain name') unless value.ends_with?("@#{record.domain.domain}")
   end
   validates :enabled, inclusion: { in: [ true, false ] }
-  validates :password, presence: { on: :create, unless: :crypt? }, length: { minimum: 10, allow_blank: true, unless: :password_unchanged? }, if: :local_mailbox?
+  validates :password, presence: { on: :create, unless: :crypt? }, length: { minimum: 10, allow_blank: true, unless: :password_unchanged? }, not_pwned: { unless: :password_unchanged? }, if: :local_mailbox?
   validates :password, inclusion: { in: [ nil, '' ], message: 'must be empty when this is an alias address' }, unless: :local_mailbox?
   validates :forward, inclusion: { in: [ true, false ] }
   validates :forward_to, presence: { if: :forward }, format: { with: EMAIL_REGEXP, allow_blank: true }, length: { maximum: 255 }, if: :local_mailbox?
