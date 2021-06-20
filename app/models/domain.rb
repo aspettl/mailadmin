@@ -13,7 +13,7 @@ class Domain < ApplicationRecord
   validates :user_id, presence: true
   validates :type, inclusion: { in: types.keys }
   validates :domain, uniqueness: true, format: { with: DOMAIN_REGEXP }, length: { maximum: 255 }
-  validates_each :domain do |record, attr, value|
+  validates_each :domain, on: :create do |record, attr, value|
     parts = (value || '').split('.')
     (1...parts.length).each do |start|
       domain = parts[start..].join('.')
