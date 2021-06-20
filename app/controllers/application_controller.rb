@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   private
     def set_user
-      @user = current_user
+      @user = user_signed_in? ? current_user : nil
       @login_via_http_auth = (request.headers['Authorization'] || '').downcase.start_with?('basic ')
     end
 

@@ -11,7 +11,7 @@
   </head>
 
   <body>
-    <% if @user.email? %>
+    <% if @user.id? %>
       <p id="login_bar">
         You are logged in as <%= @user.email %>.
         <% unless @login_via_http_auth %>
