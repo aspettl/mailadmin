@@ -37,16 +37,28 @@ class RoundcubeApiControllerTest < ActionDispatch::IntegrationTest
     post roundcube_password_url, params: { email: @account.email, current_password: 'test', new_password: NEW_PASSWORD }
 
     assert_response :success
+    assert_equal 'OK', response.body
     @account.reload
     assert @account.matches_crypted_password?(NEW_PASSWORD)
+  end
+
+  test "should not update password when no new password given" do
+    old_crypt = @account.crypt
+
+    post roundcube_password_url, params: { email: @account.email, current_password: 'test', new_password: '' }
+
+    assert_response :bad_request
+    @account.reload
+    assert_equal old_crypt, @account.crypt
   end
 
   test "should not update password on validation error (too short)" do
     old_crypt = @account.crypt
 
-    post roundcube_password_url, params: { email: @account.email, current_password: 'test', new_password: 'tooshort' }
+    post roundcube_password_url, params: { email: @account.email, current_password: 'test', new_password: 'sfhj3we4i' }
 
-    assert_response :bad_request
+    assert_response :success
+    assert_equal 'Validation failed: Password is too short (minimum is 10 characters)', response.body
     @account.reload
     assert_equal old_crypt, @account.crypt
   end
@@ -56,7 +68,8 @@ class RoundcubeApiControllerTest < ActionDispatch::IntegrationTest
 
     post roundcube_password_url, params: { email: @account.email, current_password: 'test', new_password: 'newpassword' }
 
-    assert_response :bad_request
+    assert_response :success
+    assert_equal 'Validation failed: Password has previously appeared in a data breach and should not be used', response.body
     @account.reload
     assert_equal old_crypt, @account.crypt
   end

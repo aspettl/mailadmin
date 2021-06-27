@@ -14,7 +14,7 @@ class RoundcubeApiController < ApplicationController
 
     @account.password = params[:new_password]
     if @account.save
-      render plain: 'Account password has been updated.', status: 200
+      render plain: 'OK'
 
       begin
         @configreload.trigger! unless params[:new_password] == params[:current_password]
@@ -22,7 +22,7 @@ class RoundcubeApiController < ApplicationController
         # nothing sensible that we can do here
       end
     else
-      render plain: 'Validation failed! Account password not updated.', status: 400
+      render plain: "Validation failed: #{@account.errors.full_messages.to_sentence}"
     end
   end
 
