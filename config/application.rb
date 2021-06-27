@@ -19,6 +19,9 @@ module Mailadmin
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
+    # Avoid password fields of Roundcube password plugin API in logs
+    config.filter_parameters += [:curpass, :newpass]
+
     # Custom application configuration
     config.mailserver_hostname  = ENV.fetch('MAILSERVER_HOSTNAME') { Socket.gethostname }
     config.webmail_hostname     = ENV.fetch('WEBMAIL_HOSTNAME', config.mailserver_hostname)
