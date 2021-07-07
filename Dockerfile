@@ -1,4 +1,4 @@
-FROM ruby:2.7.3-alpine AS builder
+FROM ruby:2.7.4-alpine AS builder
 
 RUN apk update \
  && apk add build-base zlib-dev tzdata openssl-dev mariadb-dev shared-mime-info nodejs yarn \
@@ -23,7 +23,7 @@ RUN RAILS_ENV=production SECRET_KEY_BASE=irrelevant bundle exec rails assets:pre
 RUN rm -rf node_modules
 
 
-FROM ruby:2.7.3-alpine
+FROM ruby:2.7.4-alpine
 LABEL maintainer="aaron@spettl.de"
 
 RUN apk update \
