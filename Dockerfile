@@ -6,13 +6,15 @@ RUN apk update \
 
 WORKDIR /app
 
-ADD Gemfile Gemfile.lock .
+ADD Gemfile Gemfile.lock ./
 
 RUN gem install bundler -v $(tail -n1 Gemfile.lock | xargs) \
- && bundle config set build.sassc '--disable-march-tune-native' \
- && bundle install --deployment --without development test
+ && bundle config set --local deployment 'true' \
+ && bundle config set --local without 'development test' \
+ && bundle config set --local build.sassc '--disable-march-tune-native' \
+ && bundle install
 
-ADD package.json yarn.lock .
+ADD package.json yarn.lock ./
 
 RUN yarn install
 
@@ -40,7 +42,8 @@ USER 101
 
 COPY --from=builder --chown=app:app /app .
 
-RUN bundle config --local path vendor/bundle && bundle config set without 'development test'
+RUN bundle config --local path vendor/bundle \
+ && bundle config set --local without 'development test'
 
 ENV PORT 3000
 ENV RAILS_ENV production
