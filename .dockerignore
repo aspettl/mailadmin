@@ -1,5 +1,7 @@
 /.git
+/integrations
 /log
 /node_modules
 /tmp
 !/tmp/pids/.keep
+docker-compose.yml

@@ -1,0 +1,4 @@
+# All mailboxes (even though they may be forwarded to somewhere else - when an alias is defined)
+{%- for mailbox in mailbox_passwords %}
+{{ mailbox }}|{% if mailbox_passwords[mailbox].startswith("$1") %}{MD5-CRYPT}{% elif mailbox_passwords[mailbox].startswith("$2") %}{BLF-CRYPT}{% elif mailbox_passwords[mailbox].startswith("$5") %}{SHA256-CRYPT}{% elif mailbox_passwords[mailbox].startswith("$6") %}{SHA512-CRYPT}{% elif mailbox_passwords[mailbox].startswith("$argon2i$") %}{ARGON2I}{% elif mailbox_passwords[mailbox].startswith("$argon2id$") %}{ARGON2ID}{% else %}{DES-CRYPT}{% endif %}{{ mailbox_passwords[mailbox] }}
+{%- endfor %}

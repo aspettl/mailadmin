@@ -1,15 +1,52 @@
 version: '3'
 
 services:
-  web:
+  mailadmin:
     build: .
-    image: registry.k8s.spettl.net/mailadmin:0.0.15
+    image: registry.k8s.spettl.net/mailadmin
     environment:
-      - DATABASE_URL=mysql2://mailadmin:@localhost/mailadmin_production
+      - DATABASE_URL=mysql2://mailadmin:@localhost/mailadmin_development
       - MAILSERVER_HOSTNAME=mail.example.com
       - WEBMAIL_HOSTNAME=webmail.example.com
-      - API_TOKEN=secret
+      - API_TOKEN=some-secret-api-token
+      - CONFIGRELOAD_WEBHOOK=http://nginx/webhooks/some-random-long-string
     ports:
       - "3000:3000"
     volumes:
       - "/var/run/mysqld:/var/run/mysqld"
+
+  # Initialize volume for log files to avoid those being symlinked to stdout/stderr
+  init-logs:
+    image: debian:buster
+    command: "touch /var/log/nginx/access.log && touch /var/log/nginx/error.log"
+    volumes:
+      - nginx-logs:/var/log/nginx
+
+  # Integration to docker-mailserver, config is written to volume "docker-mailserver-config"
+  configreload:
+    build: integrations/docker-mailserver-configreload
+    image: registry.k8s.spettl.net/docker-mailserver-configreload
+    depends_on:
+      - init-logs
+      - mailadmin
+    environment:
+      - WEBHOOK_TOKEN=some-random-long-string
+      - WEBHOOK_LOG=/var/log/nginx/access.log
+      - MAILADMIN_URL=http://mailadmin:3000
+      - MAILADMIN_API_TOKEN=some-secret-api-token
+    volumes:
+      - docker-mailserver-config:/config
+      - nginx-logs:/var/log/nginx
+
+  # Some webserver typically running on the same host as docker-mailserver, we just look for
+  # the magic webhook token in its access log
+  nginx:
+    image: nginx:stable
+    depends_on:
+      - init-logs
+    volumes:
+      - nginx-logs:/var/log/nginx
+
+volumes:
+  nginx-logs:
+  docker-mailserver-config:

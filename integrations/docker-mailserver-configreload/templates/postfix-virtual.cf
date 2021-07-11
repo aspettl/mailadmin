@@ -1,0 +1,22 @@
+# Map all mailboxes (without defined forwarding) to the mailboxes themselves, needed so that catchalls do not match here
+{%- for mailbox in mailbox_passwords %}
+{%- if not mailbox in mailbox_aliases %}
+{{ mailbox }} {{ mailbox }}
+{%- endif %}
+{%- endfor %}
+# Mailbox aliases (both for real mailboxes and forward-only aliases)
+{%- for alias in mailbox_aliases %}
+{{ alias }} {{ mailbox_aliases[alias] }}
+{%- endfor %}
+# Domain catchalls
+{%- for domain in domain_catchalls %}
+@{{ domain }} {{ domain_catchalls[domain] }}
+{%- endfor %}
+# Blackhole addresses
+{%- for mailbox in mailbox_drop %}
+{{ mailbox }} devnull@localhost
+{%- endfor %}
+# Domain aliases
+{%- for alias in domain_aliases %}
+@{{ alias }} @{{ domain_aliases[alias] }}
+{%- endfor %}
