@@ -5,3 +5,4 @@
 /tmp
 !/tmp/pids/.keep
 docker-compose.yml
+README.md
