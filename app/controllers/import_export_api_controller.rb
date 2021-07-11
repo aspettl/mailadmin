@@ -88,21 +88,6 @@ class ImportExportApiController < ApplicationController
         end
       end
 
-      (params[:group_aliases] || {}).each do |email, alias_targets|
-        domain = find_local_domain_by_email(user, email)
-        account = domain.accounts.find_by(email: email)
-        if account.present?
-          if account.alias_address?
-            account.alias_target = alias_targets.join(',')
-            account.save!
-          else
-            render_error("Account #{email} found, but it is not an alias address, cannot set alias target!")
-          end
-        else
-          Account.create!(domain: domain, type: Account.types[:alias_address], email: email, enabled: true, alias_target: alias_targets.join(','))
-        end
-      end
-
       (params[:mailbox_drop] || []).each do |email|
         domain = find_local_domain_by_email(user, email)
         account = domain.accounts.find_by(email: email)
