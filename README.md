@@ -8,7 +8,25 @@ however, there is an API for the Roundcube password plugin.
 It was developed to manage a mailserver running with
 [docker-mailserver](https://github.com/docker-mailserver/docker-mailserver).
 
-## Start locally
+Features:
+
+* UI features
+  * manage domains and domain aliases
+    * support domain catchalls
+  * mailboxes for end users
+    * `crypt`-based password hashes
+    * optional email forwarding
+  * alias addresses
+  * blackhole addresses
+* config export to `docker-mailserver`
+* Roundcube password plugin API
+
+:warning: This is an early release to make the project available and get some
+feedback. And hopefully it is already of use to someone. Test coverage is
+definitely still lacking, CI missing and docker images are not yet pushed to
+a public repository.
+
+## Start/try out locally
 
 Requirements:
 
