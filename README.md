@@ -2,13 +2,14 @@
 
 Mailadmin is a simple tool to manage email domains, accounts and alias addresses
 conveniently. It targets systems where there is only a handful of users who
-want to manage their own domains. It is *not* meant to be used by end users -
-however, there is an API for the Roundcube password plugin.
+want to manage their own domains. It is *not* meant to be used by end users
+(those using the mailboxes) - however, there is an API for the Roundcube
+password plugin.
 
 It was developed to manage a mailserver running with
 [docker-mailserver](https://github.com/docker-mailserver/docker-mailserver).
 
-Features:
+## Features
 
 * UI features
   * manage domains and domain aliases
@@ -18,6 +19,8 @@ Features:
     * optional email forwarding
   * alias addresses
   * blackhole addresses
+* multiple "admin" users
+  * one user can manage only his or her domains
 * config export to `docker-mailserver`
 * Roundcube password plugin API
 
@@ -25,6 +28,11 @@ Features:
 feedback. And hopefully it is already of use to someone. Test coverage is
 definitely still lacking, CI missing and docker images are not yet pushed to
 a public repository.
+
+### Screenshots
+
+* [Manage Domains](./screenshots/manage_domains.png)
+* [Manage Accounts](./screenshots/manage_accounts.png)
 
 ## Start/try out locally
 
@@ -54,6 +62,8 @@ environment variables.
 Note: When the container starts, it will automatically apply database migrations.
 
 ## User setup in production environment
+
+There is no UI to manage admin users.
 
 To create a user, "docker exec" or "kubectl exec" into the container and run
 `bundle exec rails console`. Then, use
