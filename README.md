@@ -53,3 +53,9 @@ that new subdomains must not belong to a domain of a different user.
 ## Integration into docker-mailserver
 
 See `docker-compose.yml` and `integrations/docker-mailserver-configreload`.
+
+## Integration into Roundcube
+
+Roundcube will typically connect via IMAP to docker-mailserver and not need
+any special configuration. The only exception is when Roundcube users should be
+able to change their account passwords, see `integrations/roundcube-password-plugin`.
