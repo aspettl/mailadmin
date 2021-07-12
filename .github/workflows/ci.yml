@@ -1,0 +1,36 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Rails tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Set up Yarn
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'yarn'
+      - name: Install dependencies
+        run: bundle install
+      - name: Install Yarn dependencies
+        run: yarn install
+      - name: Install webpacker
+        run: bundle exec rails webpacker:compile
+      - name: Start MySQL server
+        run: sudo systemctl start mysql.service
+      - name: Create database
+        run: bundle exec rails db:create
+        env:
+          DATABASE_URL: mysql2://root:root@localhost/mailadmin_test
+      - name: Run tests
+        run: bundle exec rails test
+        env:
+          DATABASE_URL: mysql2://root:root@localhost/mailadmin_test
