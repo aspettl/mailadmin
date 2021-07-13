@@ -34,6 +34,16 @@ a public repository.
 * [Manage Domains](./screenshots/manage_domains.png)
 * [Manage Accounts](./screenshots/manage_accounts.png)
 
+## Docker images
+
+Prebuilt images for the latest commit of the `main` branch are available via
+DockerHub:
+
+* `aspettl/mailadmin:edge`
+* `aspettl/docker-mailserver-configreload:edge`
+
+New tags for versions will be pushed with the version number as docker image tag.
+
 ## Start/try out locally
 
 Requirements:
@@ -51,7 +61,7 @@ password "test".
 
 ## Build docker images
 
-Increase version number in `docker-compose.yml` and use `docker-compose build`.
+You can use `docker-compose build` to build all docker images.
 
 ## Local docker-based staging environment
 

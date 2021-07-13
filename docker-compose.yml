@@ -3,7 +3,7 @@ version: '3'
 services:
   mailadmin:
     build: .
-    image: registry.k8s.spettl.net/mailadmin:0.0.16
+    image: mailadmin
     environment:
       - DATABASE_URL=mysql2://mailadmin:@localhost/mailadmin_development
       - MAILSERVER_HOSTNAME=mail.example.com
@@ -25,7 +25,7 @@ services:
   # Integration to docker-mailserver, config is written to volume "docker-mailserver-config"
   configreload:
     build: integrations/docker-mailserver-configreload
-    image: registry.k8s.spettl.net/docker-mailserver-configreload:0.0.16
+    image: docker-mailserver-configreload
     depends_on:
       - init-logs
       - mailadmin
