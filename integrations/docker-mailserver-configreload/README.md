@@ -1,3 +1,5 @@
+GitHub address of mailadmin project: https://github.com/aspettl/mailadmin
+
 # docker-mailserver integration
 
 This is a simple way to export mailadmin data and build required config files
@@ -12,7 +14,8 @@ this container.
 
 The approach is simple: there is some magic webhook token and we check the
 existing webserver log file for its presence. When the token is found, the
-config is regenerated. On startup, the config is (re)generated always.
+docker-mailserver config (`postfix-accounts.cf` and `postfix-virtual.cf`) is
+regenerated. On startup, the config is always (re)generated.
 Note that docker-mailserver will automatically reload when the files are changed.
 
 Tip: It is recommended to have a cron job regularly triggering the webhook, e.g.

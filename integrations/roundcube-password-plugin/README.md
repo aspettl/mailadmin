@@ -2,6 +2,8 @@
 
 The password plugin of Roundcube 1.5 supports an HTTP-based API for updating the password.
 
+For details see https://github.com/roundcube/roundcubemail/tree/master/plugins/password.
+
 ## Required configuration
 
 The following plugin options need to be set:

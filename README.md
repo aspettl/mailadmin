@@ -1,5 +1,7 @@
 # Mailadmin
 
+GitHub address: https://github.com/aspettl/mailadmin
+
 Mailadmin is a simple tool to manage email domains, accounts and alias addresses
 conveniently. It targets systems where there is only a handful of users who
 want to manage their own domains. It is *not* meant to be used by end users
@@ -31,16 +33,16 @@ a public repository.
 
 ### Screenshots
 
-* [Manage Domains](./screenshots/manage_domains.png)
-* [Manage Accounts](./screenshots/manage_accounts.png)
+* [Manage Domains](https://raw.githubusercontent.com/aspettl/mailadmin/main/screenshots/manage_domains.png)
+* [Manage Accounts](https://raw.githubusercontent.com/aspettl/mailadmin/main/screenshots/manage_accounts.png)
 
 ## Docker images
 
 Prebuilt images for the latest commit of the `main` branch are available via
 DockerHub:
 
-* `aspettl/mailadmin:edge`
-* `aspettl/docker-mailserver-configreload:edge`
+* [aspettl/mailadmin:edge](https://hub.docker.com/r/aspettl/mailadmin)
+* [aspettl/docker-mailserver-configreload:edge](https://hub.docker.com/r/aspettl/docker-mailserver-configreload)
 
 New tags for versions will be pushed with the version number as docker image tag.
 
