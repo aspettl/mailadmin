@@ -1,11 +1,9 @@
-FROM ubuntu:20.04
+FROM python:3-alpine
 LABEL maintainer="aaron@spettl.de"
 
-USER root
+RUN apk --no-cache add bash coreutils curl
 
-RUN apt-get update && apt-get install -y curl python3-pip && rm -rf /var/lib/apt/lists/*
-
-RUN pip3 install j2cli
+RUN pip install j2cli
 
 COPY bin/ /usr/local/bin/
 COPY templates/ /usr/local/share/templates/
