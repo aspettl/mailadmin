@@ -1,8 +1,6 @@
 FROM ruby:2.7.4-alpine AS builder
 
-RUN apk update \
- && apk add build-base zlib-dev tzdata openssl-dev mariadb-dev shared-mime-info nodejs yarn \
- && rm -rf /var/cache/apk/*
+RUN apk --no-cache add build-base zlib-dev tzdata openssl-dev mariadb-dev shared-mime-info nodejs yarn
 
 WORKDIR /app
 
@@ -28,9 +26,7 @@ RUN rm -rf node_modules
 FROM ruby:2.7.4-alpine
 LABEL maintainer="aaron@spettl.de"
 
-RUN apk update \
- && apk add zlib tzdata libssl1.1 mariadb-connector-c shared-mime-info \
- && rm -rf /var/cache/apk/*
+RUN apk --no-cache add zlib tzdata libssl1.1 mariadb-connector-c shared-mime-info
 
 WORKDIR /app
 
