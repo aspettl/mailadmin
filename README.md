@@ -30,9 +30,8 @@ setup, e.g. Postfix with Dovecot.
 * Roundcube password plugin API
 
 :warning: This is an early release to make the project available and get some
-feedback. And hopefully it is already of use to someone. Test coverage is
-definitely still lacking, CI missing and docker images are not yet pushed to
-a public repository.
+feedback. And hopefully it is already of use to someone. Have a look at the
+open issues for known limitations.
 
 ### Screenshots
 
