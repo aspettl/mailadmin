@@ -23,6 +23,7 @@ services:
       - nginx-logs:/var/log/nginx
 
   # Integration to docker-mailserver, config is written to volume "docker-mailserver-config"
+  # (in this example, for docker-mailserver it would typically be ./config/ on the host)
   configreload:
     build: integrations/docker-mailserver-configreload
     image: docker-mailserver-configreload
@@ -39,7 +40,8 @@ services:
       - nginx-logs:/var/log/nginx
 
   # Some webserver typically running on the same host as docker-mailserver, we just look for
-  # the magic webhook token in its access log
+  # the magic webhook token in its access log (recommendation: add a special access log rule
+  # in nginx for the /webhooks/ location so that your existing setup is unaffected)
   nginx:
     image: nginx:stable
     depends_on:

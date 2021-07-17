@@ -10,6 +10,8 @@ password plugin.
 
 It was developed to manage a mailserver running with
 [docker-mailserver](https://github.com/docker-mailserver/docker-mailserver).
+However, it could be used to produce configuration files for any mailserver
+setup, e.g. Postfix with Dovecot.
 
 ## Features
 
@@ -18,6 +20,7 @@ It was developed to manage a mailserver running with
     * support domain catchalls
   * mailboxes for end users
     * `crypt`-based password hashes
+    * "Have I Been Pwned" password check
     * optional email forwarding
   * alias addresses
   * blackhole addresses
@@ -44,7 +47,7 @@ DockerHub:
 * [aspettl/mailadmin:edge](https://hub.docker.com/r/aspettl/mailadmin)
 * [aspettl/docker-mailserver-configreload:edge](https://hub.docker.com/r/aspettl/docker-mailserver-configreload)
 
-New tags for versions will be pushed with the version number as docker image tag.
+Releases are pushed with the version number as docker image tag.
 
 ## Start/try out locally
 
