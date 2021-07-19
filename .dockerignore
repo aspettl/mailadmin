@@ -1,6 +1,8 @@
 /.git
+/.github
 /integrations
 /log
+/screenshots
 /node_modules
 /tmp
 !/tmp/pids/.keep

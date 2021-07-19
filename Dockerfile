@@ -10,7 +10,8 @@ RUN gem install bundler -v $(tail -n1 Gemfile.lock | xargs) \
  && bundle config set --local deployment 'true' \
  && bundle config set --local without 'development test' \
  && bundle config set --local build.sassc '--disable-march-tune-native' \
- && bundle install
+ && bundle install \
+ && find vendor/bundle/ -name '*.o' -delete
 
 ADD package.json yarn.lock ./
 
