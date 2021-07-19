@@ -1,4 +1,4 @@
-FROM ruby:2.7.4-alpine AS builder
+FROM ruby:3.0.2-alpine AS builder
 
 RUN apk --no-cache add build-base zlib-dev tzdata openssl-dev mariadb-dev shared-mime-info nodejs yarn
 
@@ -24,7 +24,7 @@ RUN RAILS_ENV=production SECRET_KEY_BASE=irrelevant bundle exec rails assets:pre
 RUN rm -rf node_modules
 
 
-FROM ruby:2.7.4-alpine
+FROM ruby:3.0.2-alpine
 LABEL maintainer="aaron@spettl.de"
 
 RUN apk --no-cache add zlib tzdata libssl1.1 mariadb-connector-c shared-mime-info
