@@ -9,6 +9,8 @@ on:
   pull_request:
     branches:
       - main
+  schedule:
+    - cron: '20 5 * * *'
 
 jobs:
   docker-mailadmin:
@@ -33,6 +35,7 @@ jobs:
             latest=false
           tags: |
             type=edge
+            type=schedule,pattern=nightly
             type=ref,event=tag
             type=ref,event=pr
       - name: Login to DockerHub
@@ -76,6 +79,7 @@ jobs:
             latest=false
           tags: |
             type=edge
+            type=schedule,pattern=nightly
             type=ref,event=tag
             type=ref,event=pr
       - name: Login to DockerHub
