@@ -5,6 +5,7 @@ services:
     build: .
     image: mailadmin
     environment:
+      - SECRET_KEY_BASE=some-secret-key-base
       - DATABASE_URL=mysql2://mailadmin:@localhost/mailadmin_development
       - MAILSERVER_HOSTNAME=mail.example.com
       - WEBMAIL_HOSTNAME=webmail.example.com

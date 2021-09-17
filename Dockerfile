@@ -45,7 +45,6 @@ RUN bundle config --local path vendor/bundle \
 ENV PORT 3000
 ENV RAILS_ENV production
 ENV DATABASE_URL "mysql2://myuser:mypass@hostname/somedatabase"
-ENV SECRET_KEY_BASE your-rails-secret
 ENV RAILS_SERVE_STATIC_FILES true
 ENV RAILS_LOG_TO_STDOUT true
 

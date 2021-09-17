@@ -52,4 +52,4 @@ production:
   <<: *default
   database: mailadmin_production
   username: mailadmin
-  password: <%= ENV['APPNAME_DATABASE_PASSWORD'] %>
+  password: <%= ENV['MAILADMIN_DATABASE_PASSWORD'] %>

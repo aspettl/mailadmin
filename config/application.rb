@@ -22,6 +22,13 @@ module Mailadmin
     # Avoid password fields of Roundcube password plugin API in logs
     config.filter_parameters += [:curpass, :newpass]
 
+    # Do not use encrypted secrets, the application is delivered as a public docker image.
+    # But we still need to set secret_key_base.
+    config.secret_key_base = ENV.fetch('SECRET_KEY_BASE') {
+      puts 'Environment variable SECRET_KEY_BASE is not set, using a random value!'
+      SecureRandom.hex(64)
+    }
+
     # Custom application configuration
     config.mailserver_hostname  = ENV.fetch('MAILSERVER_HOSTNAME') { Socket.gethostname }
     config.webmail_hostname     = ENV.fetch('WEBMAIL_HOSTNAME', config.mailserver_hostname)
