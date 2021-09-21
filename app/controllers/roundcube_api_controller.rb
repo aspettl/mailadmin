@@ -40,8 +40,8 @@ class RoundcubeApiController < ApplicationController
   end
 
   def require_new_password
-    return unless params[:newpass].blank? # rubocop:disable Rails/Present
+    return if params[:newpass].present?
 
-    render plain: 'New password must not be blank! Account password not updated.', status: :bad_request
+    render plain: 'New password must be specified! Account password not updated.', status: :bad_request
   end
 end
