@@ -4,7 +4,7 @@ require 'test_helper'
 
 class ImportExportApiControllerTest < ActionDispatch::IntegrationTest
   test 'should not backup when API auth not configured' do
-    set_required_token('')
+    configure_required_token('')
 
     get backup_url, headers: { Authorization: 'Bearer invalid-token' }
 
@@ -12,7 +12,7 @@ class ImportExportApiControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should not backup with incorrect bearer token' do
-    set_required_token('something')
+    configure_required_token('something')
 
     get backup_url, headers: { Authorization: 'Bearer something-else' }
 
@@ -20,7 +20,7 @@ class ImportExportApiControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should backup with correct bearer token' do
-    set_required_token('valid-token')
+    configure_required_token('valid-token')
 
     get backup_url, headers: { Authorization: 'Bearer valid-token' }
 
@@ -30,7 +30,7 @@ class ImportExportApiControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should not export when API auth not configured' do
-    set_required_token('')
+    configure_required_token('')
 
     get export_url, headers: { Authorization: 'Bearer invalid-token' }
 
@@ -38,7 +38,7 @@ class ImportExportApiControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should not export with incorrect bearer token' do
-    set_required_token('something')
+    configure_required_token('something')
 
     get export_url, headers: { Authorization: 'Bearer something-else' }
 
@@ -46,7 +46,7 @@ class ImportExportApiControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should export with correct bearer token' do
-    set_required_token('valid-token')
+    configure_required_token('valid-token')
 
     get export_url, headers: { Authorization: 'Bearer valid-token' }
 
@@ -60,7 +60,7 @@ class ImportExportApiControllerTest < ActionDispatch::IntegrationTest
 
   private
 
-  def set_required_token(required)
+  def configure_required_token(required)
     Rails.configuration.api_token = required
   end
 end

@@ -10,11 +10,29 @@ AllCops:
 
 Layout/LineLength:
   Max: 120
+  IgnoredPatterns: ['REGEXP']
+
+Metrics/MethodLength:
+  Max: 20
 
 Metrics/BlockLength:
   Exclude:
     - 'config/**/*'
     - 'test/**/*'
 
+Metrics/ClassLength:
+  Exclude:
+    - 'test/**/*'
+
 Style/Documentation:
   Enabled: false
+
+Rails/Output:
+  Exclude:
+    - 'config/application.rb'
+
+Rails/BulkChangeTable:
+  Enabled: false
+
+Minitest/MultipleAssertions:
+  Max: 6

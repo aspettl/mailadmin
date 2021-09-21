@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ImportExportApiController < ApplicationController
+class ImportExportApiController < ApplicationController # rubocop:disable Metrics/ClassLength
   BEARER_REGEXP = /\ABearer (.+)\z/i
 
   skip_before_action :verify_authenticity_token
@@ -13,18 +13,18 @@ class ImportExportApiController < ApplicationController
   end
 
   # GET /api/v1/export.json
-  def export
+  def export # rubocop:disable Metrics/AbcSize
     @local_domains = Domain.where(type: Domain.types[:local_domain], enabled: true).order(:id).all
     @alias_domains = Domain.where(type: Domain.types[:alias_domain], enabled: true).order(:id).all
     @local_mailboxes = Account.where(type: Account.types[:local_mailbox], enabled: true).order(:domain_id, :id).all
     @alias_addresses = Account.where(type: Account.types[:alias_address], enabled: true).order(:domain_id, :id).all
-    @blackhole_addresses = Account.where(type: Account.types[:blackhole_address], enabled: true).order(:domain_id,
-                                                                                                       :id).all
+    @blackhole_addresses = Account.where(type: Account.types[:blackhole_address], enabled: true)
+                                  .order(:domain_id, :id).all
   end
 
   # POST /api/v1/import.json
-  def import
-    catch(:abort) do
+  def import # rubocop:disable Metrics
+    catch(:abort) do # rubocop:disable Metrics/BlockLength
       user = User.find_by(email: params[:user])
       render_error("User with email address #{params[:user]} does not exist!") if user.nil?
 
@@ -98,7 +98,8 @@ class ImportExportApiController < ApplicationController
             account.alias_target = alias_target
             account.save!
           else
-            render_error("Account #{email} found, but it is not a local mailbox or alias address, cannot set forwarding target!")
+            render_error("Account #{email} found, but it is not a local mailbox or alias address, "\
+                         'cannot set forwarding target!')
           end
         else
           Account.create!(domain: domain, type: Account.types[:alias_address], email: email, enabled: true,
@@ -126,16 +127,15 @@ class ImportExportApiController < ApplicationController
     required_api_token = Rails.configuration.api_token
     obtained_api_token = BEARER_REGEXP.match(request.headers['Authorization']) { |m| m[1] }
     if required_api_token.blank?
-      render_error('Use of API is not configured.', 500, false)
+      render_error('Use of API is not configured.', status: 500, abort: false)
     else
       unless required_api_token == obtained_api_token
-        render_error('Authorization failed: a valid API token is required.', 401,
-                     false)
+        render_error('Authorization failed: a valid API token is required.', status: 401, abort: false)
       end
     end
   end
 
-  def render_error(message, status = 400, abort = true)
+  def render_error(message, status: 400, abort: true)
     render json: { error: message }, status: status
     throw(:abort) if abort
   end

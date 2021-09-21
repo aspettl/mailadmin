@@ -24,11 +24,15 @@ class Account < ApplicationRecord
     end
   end
   validates :password, presence: { on: :create, unless: :crypt? },
-                       length: { minimum: 10, allow_blank: true, unless: :password_unchanged? }, not_pwned: { unless: :password_unchanged? }, if: :local_mailbox?
+                       length: { minimum: 10, allow_blank: true, unless: :password_unchanged? },
+                       not_pwned: { unless: :password_unchanged? },
+                       if: :local_mailbox?
   validates :password, inclusion: { in: [nil, ''], message: 'must be empty when this is an alias address' },
                        unless: :local_mailbox?
-  validates :forward_to, presence: { if: :forward }, format: { with: EMAIL_REGEXP, allow_blank: true },
-                         length: { maximum: 255 }, if: :local_mailbox?
+  validates :forward_to, presence: { if: :forward },
+                         format: { with: EMAIL_REGEXP, allow_blank: true },
+                         length: { maximum: 255 },
+                         if: :local_mailbox?
   validates :forward_to, inclusion: { in: [nil, ''], message: 'must be empty when this is an alias address' },
                          unless: :local_mailbox?
   validates :alias_target, presence: true, length: { maximum: 255 }, if: :alias_address?
@@ -42,7 +46,7 @@ class Account < ApplicationRecord
 
   before_save :crypt_password
 
-  def crypt_hash_method
+  def crypt_hash_method # rubocop:disable Metrics
     if !crypt
       nil
     elsif crypt.length == 13
@@ -91,8 +95,8 @@ class Account < ApplicationRecord
   private
 
   def crypt_password
-    unless password.blank? || ((crypt_hash_method == 'BCRYPT') && password_unchanged?)
-      self.crypt = BCrypt::Password.create(password)
-    end
+    return if password.blank? || ((crypt_hash_method == 'BCRYPT') && password_unchanged?)
+
+    self.crypt = BCrypt::Password.create(password)
   end
 end
