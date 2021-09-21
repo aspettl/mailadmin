@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Configreload
   def initialize(webhook_url = Rails.configuration.configreload_webhook)
     @webhook_uri = if webhook_url.blank?

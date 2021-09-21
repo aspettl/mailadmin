@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AccountsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user
@@ -64,7 +66,7 @@ class AccountsController < ApplicationController
 
   # DELETE /accounts/1 or /accounts/1.json
   def destroy
-    if @account.can_destroy? or params[:force] == 'true'
+    if @account.can_destroy? || (params[:force] == 'true')
       @account.destroy
       respond_to do |format|
         format.html { redirect_to domain_accounts_url(@domain), notice: 'Account was successfully destroyed.' }

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ImportExportApiController < ApplicationController
   BEARER_REGEXP = /\ABearer (.+)\z/i
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './lib/configreload'
 
 class RoundcubeApiController < ApplicationController
@@ -30,7 +32,7 @@ class RoundcubeApiController < ApplicationController
 
   def set_account
     @account = Account.find_by(email: params[:user])
-    if @account.nil? or !@account.matches_crypted_password?(params[:curpass])
+    if @account.nil? || !@account.matches_crypted_password?(params[:curpass])
       render plain: 'Account does not exist or current password is wrong!',
              status: :unauthorized
     end

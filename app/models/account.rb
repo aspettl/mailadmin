@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'bcrypt'
 require 'memoist'
 
@@ -5,7 +7,7 @@ class Account < ApplicationRecord
   extend Memoist
 
   EMAIL_REGEXP = /\A[a-zA-Z0-9.+=_~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\z/
-  MODERN_CRYPT_METHODS = %w[SHA256-CRYPT SHA512-CRYPT BCRYPT ARGON2]
+  MODERN_CRYPT_METHODS = %w[SHA256-CRYPT SHA512-CRYPT BCRYPT ARGON2].freeze
 
   belongs_to :domain
 
@@ -61,7 +63,7 @@ class Account < ApplicationRecord
   end
 
   def matches_crypted_password?(password)
-    return false if password.blank? or crypt.blank?
+    return false if password.blank? || crypt.blank?
 
     password.crypt(crypt) == crypt
   end
@@ -89,7 +91,7 @@ class Account < ApplicationRecord
   private
 
   def crypt_password
-    unless password.blank? or (crypt_hash_method == 'BCRYPT' and password_unchanged?)
+    unless password.blank? || ((crypt_hash_method == 'BCRYPT') && password_unchanged?)
       self.crypt = BCrypt::Password.create(password)
     end
   end

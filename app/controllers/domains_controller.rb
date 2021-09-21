@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DomainsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user
@@ -61,7 +63,7 @@ class DomainsController < ApplicationController
 
   # DELETE /domains/1 or /domains/1.json
   def destroy
-    if @domain.can_destroy? or params[:force] == 'true'
+    if @domain.can_destroy? || (params[:force] == 'true')
       @domain.destroy
       respond_to do |format|
         format.html { redirect_to domains_url, notice: 'Domain was successfully destroyed.' }

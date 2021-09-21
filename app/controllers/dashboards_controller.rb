@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './lib/configreload'
 
 class DashboardsController < ApplicationController

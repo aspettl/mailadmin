@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddAliasColumnsToDomains < ActiveRecord::Migration[6.1]
   def change
     add_column :domains, :type, :integer, null: false, default: 0

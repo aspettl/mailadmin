@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddAliasColumnsToAccounts < ActiveRecord::Migration[6.1]
   def change
     add_column :accounts, :type, :integer, null: false, default: 0
