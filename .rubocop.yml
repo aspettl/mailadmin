@@ -6,6 +6,7 @@ AllCops:
   Exclude:
     - 'bin/**/*'
     - 'db/schema.rb'
+    - 'vendor/**/*'
 
 Layout/LineLength:
   Max: 120

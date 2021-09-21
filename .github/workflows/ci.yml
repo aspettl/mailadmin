@@ -34,3 +34,5 @@ jobs:
         run: bundle exec rails test
         env:
           DATABASE_URL: mysql2://root:root@localhost/mailadmin_test
+      - name: Run rubocop
+        run: bundle exec rubocop -c .rubocop.yml
