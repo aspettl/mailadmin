@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Configreload
   def initialize(webhook_url = Rails.configuration.configreload_webhook)
     @webhook_uri = if webhook_url.blank?
@@ -12,7 +14,7 @@ class Configreload
   end
 
   def trigger!
-    Net::HTTP.get_response(@webhook_uri) if self.configured?
-    self.configured?
+    Net::HTTP.get_response(@webhook_uri) if configured?
+    configured?
   end
 end
