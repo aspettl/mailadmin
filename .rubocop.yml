@@ -1,0 +1,20 @@
+require:
+  - rubocop-rails
+  - rubocop-minitest
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'bin/**/*'
+    - 'db/schema.rb'
+
+Layout/LineLength:
+  Max: 120
+
+Metrics/BlockLength:
+  Exclude:
+    - 'config/**/*'
+    - 'test/**/*'
+
+Style/Documentation:
+  Enabled: false
