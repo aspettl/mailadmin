@@ -16,7 +16,8 @@ class ImportExportApiController < ApplicationController
     @alias_domains = Domain.where(type: Domain.types[:alias_domain], enabled: true).order(:id).all
     @local_mailboxes = Account.where(type: Account.types[:local_mailbox], enabled: true).order(:domain_id, :id).all
     @alias_addresses = Account.where(type: Account.types[:alias_address], enabled: true).order(:domain_id, :id).all
-    @blackhole_addresses = Account.where(type: Account.types[:blackhole_address], enabled: true).order(:domain_id, :id).all
+    @blackhole_addresses = Account.where(type: Account.types[:blackhole_address], enabled: true).order(:domain_id,
+                                                                                                       :id).all
   end
 
   # POST /api/v1/import.json
@@ -28,8 +29,12 @@ class ImportExportApiController < ApplicationController
       (params[:domains] || []).each do |domain_name|
         domain = user.domains.find_by(domain: domain_name)
         if domain.present?
-          render_error("Local domain #{domain_name} cannot be imported, it already exists with a different type!") unless domain.local_domain?
-          render_error("Local domain #{domain_name} cannot be imported, it already exists but it is disabled!") unless domain.enabled
+          unless domain.local_domain?
+            render_error("Local domain #{domain_name} cannot be imported, it already exists with a different type!")
+          end
+          unless domain.enabled
+            render_error("Local domain #{domain_name} cannot be imported, it already exists but it is disabled!")
+          end
         else
           Domain.create!(user: user, type: Domain.types[:local_domain], domain: domain_name, enabled: true)
         end
@@ -38,11 +43,18 @@ class ImportExportApiController < ApplicationController
       (params[:domain_aliases] || {}).each do |domain_name, alias_target|
         domain = user.domains.find_by(domain: domain_name)
         if domain.present?
-          render_error("Alias domain #{domain_name} cannot be imported, it already exists with a different type!") unless domain.alias_domain?
-          render_error("Alias domain #{domain_name} cannot be imported, it already exists with a different target!") unless domain.alias_target == alias_target
-          render_error("Alias domain #{domain_name} cannot be imported, it already exists but it is disabled!") unless domain.enabled
+          unless domain.alias_domain?
+            render_error("Alias domain #{domain_name} cannot be imported, it already exists with a different type!")
+          end
+          unless domain.alias_target == alias_target
+            render_error("Alias domain #{domain_name} cannot be imported, it already exists with a different target!")
+          end
+          unless domain.enabled
+            render_error("Alias domain #{domain_name} cannot be imported, it already exists but it is disabled!")
+          end
         else
-          Domain.create!(user: user, type: Domain.types[:alias_domain], domain: domain_name, enabled: true, alias_target: alias_target)
+          Domain.create!(user: user, type: Domain.types[:alias_domain], domain: domain_name, enabled: true,
+                         alias_target: alias_target)
         end
       end
 
@@ -61,11 +73,14 @@ class ImportExportApiController < ApplicationController
         domain = find_local_domain_by_email(user, email)
         account = domain.accounts.find_by(email: email)
         if account.present?
-          render_error("Account #{email} found, but it is not a local mailbox, cannot set password!") unless account.local_mailbox?
+          unless account.local_mailbox?
+            render_error("Account #{email} found, but it is not a local mailbox, cannot set password!")
+          end
           account.crypt = crypt
           account.save!
         else
-          Account.create!(domain: domain, type: Account.types[:local_mailbox], email: email, enabled: true, crypt: crypt)
+          Account.create!(domain: domain, type: Account.types[:local_mailbox], email: email, enabled: true,
+                          crypt: crypt)
         end
       end
 
@@ -84,7 +99,8 @@ class ImportExportApiController < ApplicationController
             render_error("Account #{email} found, but it is not a local mailbox or alias address, cannot set forwarding target!")
           end
         else
-          Account.create!(domain: domain, type: Account.types[:alias_address], email: email, enabled: true, alias_target: alias_target)
+          Account.create!(domain: domain, type: Account.types[:alias_address], email: email, enabled: true,
+                          alias_target: alias_target)
         end
       end
 
@@ -98,30 +114,34 @@ class ImportExportApiController < ApplicationController
         end
       end
 
-      render json: { success: "All records have been imported." }, status: 200
+      render json: { success: 'All records have been imported.' }, status: :ok
     end
   end
 
   private
-    def authenticate_via_token!
-      required_api_token = Rails.configuration.api_token
-      obtained_api_token = BEARER_REGEXP.match(request.headers['Authorization']) { |m| m[1] }
-      if required_api_token.blank?
-        render_error("Use of API is not configured.", 500, false)
-      else
-        render_error("Authorization failed: a valid API token is required.", 401, false) unless required_api_token == obtained_api_token
+
+  def authenticate_via_token!
+    required_api_token = Rails.configuration.api_token
+    obtained_api_token = BEARER_REGEXP.match(request.headers['Authorization']) { |m| m[1] }
+    if required_api_token.blank?
+      render_error('Use of API is not configured.', 500, false)
+    else
+      unless required_api_token == obtained_api_token
+        render_error('Authorization failed: a valid API token is required.', 401,
+                     false)
       end
     end
+  end
 
-    def render_error(message, status = 400, abort = true)
-      render json: { error: message }, status: status
-      throw(:abort) if abort
-    end
+  def render_error(message, status = 400, abort = true)
+    render json: { error: message }, status: status
+    throw(:abort) if abort
+  end
 
-    def find_local_domain_by_email(user, email)
-      domain_name = email.split('@', 2)[1]
-      domain = user.domains.find_by(domain: domain_name, type: Domain.types[:local_domain])
-      render_error("No local domain #{domain_name} found, required for account #{email}!") if domain.nil?
-      domain
-    end
+  def find_local_domain_by_email(user, email)
+    domain_name = email.split('@', 2)[1]
+    domain = user.domains.find_by(domain: domain_name, type: Domain.types[:local_domain])
+    render_error("No local domain #{domain_name} found, required for account #{email}!") if domain.nil?
+    domain
+  end
 end

@@ -29,7 +29,7 @@ class DashboardsController < ApplicationController
       @configreload.trigger!
 
       respond_to do |format|
-        format.html { redirect_to dashboard_url, notice: "Configuration reload has been triggered." }
+        format.html { redirect_to dashboard_url, notice: 'Configuration reload has been triggered.' }
         format.json { head :no_content }
       end
     rescue Exception => e
@@ -38,14 +38,15 @@ class DashboardsController < ApplicationController
   end
 
   private
-    def get_configreload
-      @configreload = Configreload.new
-    end
 
-    def respond_with_error(message)
-      respond_to do |format|
-        format.html { redirect_to dashboard_url, alert: message }
-        format.json { ender json: { error: message }, status: 500 }
-      end
+  def get_configreload
+    @configreload = Configreload.new
+  end
+
+  def respond_with_error(message)
+    respond_to do |format|
+      format.html { redirect_to dashboard_url, alert: message }
+      format.json { ender json: { error: message }, status: 500 }
     end
+  end
 end

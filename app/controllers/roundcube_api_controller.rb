@@ -8,7 +8,7 @@ class RoundcubeApiController < ApplicationController
   # POST /api/v1/roundcube_password.txt
   def update_password
     if params[:newpass].blank?
-      render plain: 'New password must not be blank! Account password not updated.', status: 400
+      render plain: 'New password must not be blank! Account password not updated.', status: :bad_request
       return
     end
 
@@ -27,12 +27,16 @@ class RoundcubeApiController < ApplicationController
   end
 
   private
-    def set_account
-      @account = Account.find_by(email: params[:user])
-      render plain: "Account does not exist or current password is wrong!", status: 401 if @account.nil? or !@account.matches_crypted_password?(params[:curpass])
-    end
 
-    def get_configreload
-      @configreload = Configreload.new
+  def set_account
+    @account = Account.find_by(email: params[:user])
+    if @account.nil? or !@account.matches_crypted_password?(params[:curpass])
+      render plain: 'Account does not exist or current password is wrong!',
+             status: :unauthorized
     end
+  end
+
+  def get_configreload
+    @configreload = Configreload.new
+  end
 end

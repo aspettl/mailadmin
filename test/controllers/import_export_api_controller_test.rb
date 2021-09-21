@@ -1,7 +1,7 @@
-require "test_helper"
+require 'test_helper'
 
 class ImportExportApiControllerTest < ActionDispatch::IntegrationTest
-  test "should not backup when API auth not configured" do
+  test 'should not backup when API auth not configured' do
     set_required_token('')
 
     get backup_url, headers: { Authorization: 'Bearer invalid-token' }
@@ -9,7 +9,7 @@ class ImportExportApiControllerTest < ActionDispatch::IntegrationTest
     assert_response :internal_server_error
   end
 
-  test "should not backup with incorrect bearer token" do
+  test 'should not backup with incorrect bearer token' do
     set_required_token('something')
 
     get backup_url, headers: { Authorization: 'Bearer something-else' }
@@ -17,7 +17,7 @@ class ImportExportApiControllerTest < ActionDispatch::IntegrationTest
     assert_response :unauthorized
   end
 
-  test "should backup with correct bearer token" do
+  test 'should backup with correct bearer token' do
     set_required_token('valid-token')
 
     get backup_url, headers: { Authorization: 'Bearer valid-token' }
@@ -27,7 +27,7 @@ class ImportExportApiControllerTest < ActionDispatch::IntegrationTest
     assert_equal Account.all.to_set, assigns(:accounts).to_set
   end
 
-  test "should not export when API auth not configured" do
+  test 'should not export when API auth not configured' do
     set_required_token('')
 
     get export_url, headers: { Authorization: 'Bearer invalid-token' }
@@ -35,7 +35,7 @@ class ImportExportApiControllerTest < ActionDispatch::IntegrationTest
     assert_response :internal_server_error
   end
 
-  test "should not export with incorrect bearer token" do
+  test 'should not export with incorrect bearer token' do
     set_required_token('something')
 
     get export_url, headers: { Authorization: 'Bearer something-else' }
@@ -43,7 +43,7 @@ class ImportExportApiControllerTest < ActionDispatch::IntegrationTest
     assert_response :unauthorized
   end
 
-  test "should export with correct bearer token" do
+  test 'should export with correct bearer token' do
     set_required_token('valid-token')
 
     get export_url, headers: { Authorization: 'Bearer valid-token' }
@@ -57,7 +57,8 @@ class ImportExportApiControllerTest < ActionDispatch::IntegrationTest
   end
 
   private
-    def set_required_token(required)
-      Rails.configuration.api_token = required
-    end
+
+  def set_required_token(required)
+    Rails.configuration.api_token = required
+  end
 end
