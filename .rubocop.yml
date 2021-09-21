@@ -27,6 +27,9 @@ Metrics/ClassLength:
 Style/Documentation:
   Enabled: false
 
+Style/EmptyMethod:
+  Enabled: false
+
 Rails/Output:
   Exclude:
     - 'config/application.rb'

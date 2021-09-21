@@ -30,7 +30,8 @@ class DomainsController < ApplicationController
   end
 
   # GET /domains/1/edit
-  def edit; end
+  def edit
+  end
 
   # POST /domains or /domains.json
   def create

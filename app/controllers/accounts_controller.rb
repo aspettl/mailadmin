@@ -33,7 +33,8 @@ class AccountsController < ApplicationController
   end
 
   # GET /accounts/1/edit
-  def edit; end
+  def edit
+  end
 
   # POST /accounts or /accounts.json
   def create
