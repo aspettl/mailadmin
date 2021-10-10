@@ -196,3 +196,13 @@ Minitest/UnreachableAssertion: # new in 0.14
   Enabled: true
 Minitest/UnspecifiedException: # new in 0.10
   Enabled: true
+Lint/RequireRelativeSelfPath: # new in 1.22
+  Enabled: true
+Security/IoMethods: # new in 1.22
+  Enabled: true
+Style/NumberedParameters: # new in 1.22
+  Enabled: true
+Style/NumberedParametersLimit: # new in 1.22
+  Enabled: true
+Style/SelectByRegexp: # new in 1.22
+  Enabled: true
