@@ -83,7 +83,6 @@ GEM
     childprocess (4.1.0)
     concurrent-ruby (1.1.9)
     crass (1.0.6)
-    date (3.2.1)
     devise (4.8.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -254,7 +253,6 @@ DEPENDENCIES
   breadcrumbs_on_rails
   byebug
   capybara (>= 3.26)
-  date (>= 3.2.1)
   devise
   jbuilder (~> 2.7)
   listen (~> 3.3)
@@ -277,7 +275,7 @@ DEPENDENCIES
   webpacker (~> 5.0)
 
 RUBY VERSION
-   ruby 3.0.2p107
+   ruby 3.0.3p157
 
 BUNDLED WITH
-   2.2.22
+   2.2.32
