@@ -65,7 +65,7 @@ GEM
     ast (2.4.2)
     bcrypt (3.1.16)
     bindex (0.8.1)
-    bootsnap (1.9.1)
+    bootsnap (1.9.3)
       msgpack (~> 1.0)
     breadcrumbs_on_rails (4.1.0)
       railties (>= 5.0)
@@ -249,7 +249,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt
-  bootsnap (>= 1.4.4)
+  bootsnap (>= 1.9.2)
   breadcrumbs_on_rails
   byebug
   capybara (>= 3.26)

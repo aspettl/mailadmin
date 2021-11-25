@@ -44,7 +44,8 @@ gem 'nilify_blanks'
 gem 'memoist'
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.4.4', require: false
+# Note: with Ruby 3.0.3, we need at least version 1.9.2 to work around https://bugs.ruby-lang.org/issues/18250
+gem 'bootsnap', '>= 1.9.2', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
