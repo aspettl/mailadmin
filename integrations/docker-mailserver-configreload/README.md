@@ -26,3 +26,7 @@ in mailadmin.
 
 The `postfix-aliases.cf` file needs a line `devnull: /dev/null`. This file is
 only auto-generated if it does not exist yet.
+
+Set `ENABLE_QUOTAS=0` in your configuration, otherwise starting with version 10.3.0
+local mail accounts will be listed twice in `/etc/dovecot/userdb`, which produces
+errors in the logs.
