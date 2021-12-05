@@ -31,7 +31,7 @@ jobs:
         env:
           DATABASE_URL: mysql2://root:root@localhost/mailadmin_test
       - name: Run tests
-        run: bundle exec rails test
+        run: bundle exec rails test:all
         env:
           DATABASE_URL: mysql2://root:root@localhost/mailadmin_test
       - name: Run rubocop
