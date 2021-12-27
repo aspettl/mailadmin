@@ -47,4 +47,16 @@ class AccountTest < ActiveSupport::TestCase
     assert account.matches_crypted_password?('test')
     assert_not account.matches_crypted_password?('test2')
   end
+
+  test 'matches_crypted_password? should validate scrypt passwords' do
+    account = Account.new(crypt: '$7$CU..../....r45uDWgDimNmR9jylBJc20$jtIx8GBi6kGLgsWbZ7cB0iv0SwiJFJwSS9QdiMX.bWB')
+    assert account.matches_crypted_password?('test')
+    assert_not account.matches_crypted_password?('test2')
+  end
+
+  test 'matches_crypted_password? should validate yescrypt passwords' do
+    account = Account.new(crypt: '$y$j9T$JFwAauauD7qiqayNAniPa/$S1I7nNhDdmV8m8M0pGBD6OFyWq3UjUa5tohkCQ70ra5')
+    assert account.matches_crypted_password?('test')
+    assert_not account.matches_crypted_password?('test2')
+  end
 end

@@ -7,7 +7,7 @@ class Account < ApplicationRecord
   extend Memoist
 
   EMAIL_REGEXP = /\A[a-zA-Z0-9.+=_~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\z/
-  MODERN_CRYPT_METHODS = %w[SHA256-CRYPT SHA512-CRYPT BCRYPT ARGON2].freeze
+  MODERN_CRYPT_METHODS = %w[SHA256-CRYPT SHA512-CRYPT BCRYPT SCRYPT YESCRYPT ARGON2].freeze
 
   belongs_to :domain
 
@@ -59,6 +59,10 @@ class Account < ApplicationRecord
       'SHA512-CRYPT'
     elsif crypt.starts_with?('$2')
       'BCRYPT'
+    elsif crypt.starts_with?('$7')
+      'SCRYPT'
+    elsif crypt.starts_with?('$y')
+      'YESCRYPT'
     elsif crypt.starts_with?('$argon2')
       'ARGON2'
     else
