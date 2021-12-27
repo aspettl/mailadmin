@@ -1,6 +1,6 @@
 FROM ruby:3.0.3-alpine AS builder
 
-RUN apk --no-cache add build-base zlib-dev tzdata openssl-dev mariadb-dev shared-mime-info nodejs yarn
+RUN apk --no-cache add build-base zlib-dev tzdata openssl-dev mariadb-dev shared-mime-info
 
 WORKDIR /app
 
@@ -13,15 +13,9 @@ RUN gem install bundler -v $(tail -n1 Gemfile.lock | xargs) \
  && bundle install \
  && find vendor/bundle/ -name '*.o' -delete
 
-ADD package.json yarn.lock ./
-
-RUN yarn install
-
 COPY . .
 
 RUN RAILS_ENV=production SECRET_KEY_BASE=irrelevant bundle exec rails assets:precompile
-
-RUN rm -rf node_modules
 
 
 FROM ruby:3.0.3-alpine
