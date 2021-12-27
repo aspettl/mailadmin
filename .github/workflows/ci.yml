@@ -22,8 +22,6 @@ jobs:
         run: bundle install
       - name: Install Yarn dependencies
         run: yarn install
-      - name: Install webpacker
-        run: bundle exec rails webpacker:compile
       - name: Start MySQL server
         run: sudo systemctl start mysql.service
       - name: Create database
