@@ -98,9 +98,6 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
-    listen (3.7.0)
-      rb-fsevent (~> 0.10, >= 0.10.3)
-      rb-inotify (~> 0.9, >= 0.9.10)
     loofah (2.13.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -130,8 +127,6 @@ GEM
     pwned (2.3.0)
     racc (1.6.0)
     rack (2.2.3)
-    rack-mini-profiler (2.3.3)
-      rack (>= 1.2.0)
     rack-proxy (0.7.0)
       rack
     rack-test (1.1.0)
@@ -168,9 +163,6 @@ GEM
       zeitwerk (~> 2.5)
     rainbow (3.0.0)
     rake (13.0.6)
-    rb-fsevent (0.11.0)
-    rb-inotify (0.10.1)
-      ffi (~> 1.0)
     regexp_parser (2.2.0)
     responders (3.0.1)
       actionpack (>= 5.0)
@@ -256,13 +248,11 @@ DEPENDENCIES
   capybara (>= 3.26)
   devise
   jbuilder (~> 2.7)
-  listen (~> 3.3)
   memoist
   mysql2 (~> 0.5)
   nilify_blanks
   puma (~> 5.5)
   pwned
-  rack-mini-profiler (~> 2.0)
   rails (~> 7.0.0)
   rails-controller-testing
   rubocop
