@@ -18,7 +18,7 @@ class Domain < ApplicationRecord
     parts = (value || '').split('.')
     (1...parts.length).each do |start|
       domain = parts[start..].join('.')
-      unless Domain.where(domain: domain).where.not(user_id: record.user_id).empty?
+      unless Domain.where(domain:).where.not(user_id: record.user_id).empty?
         record.errors.add(attr,
                           "is a subdomain of already existing '#{domain}' from a different user")
       end
