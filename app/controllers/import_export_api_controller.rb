@@ -38,7 +38,7 @@ class ImportExportApiController < ApplicationController # rubocop:disable Metric
             render_error("Local domain #{domain_name} cannot be imported, it already exists but it is disabled!")
           end
         else
-          Domain.create!(user: user, type: Domain.types[:local_domain], domain: domain_name, enabled: true)
+          Domain.create!(user:, type: Domain.types[:local_domain], domain: domain_name, enabled: true)
         end
       end
 
@@ -55,8 +55,8 @@ class ImportExportApiController < ApplicationController # rubocop:disable Metric
             render_error("Alias domain #{domain_name} cannot be imported, it already exists but it is disabled!")
           end
         else
-          Domain.create!(user: user, type: Domain.types[:alias_domain], domain: domain_name, enabled: true,
-                         alias_target: alias_target)
+          Domain.create!(user:, type: Domain.types[:alias_domain], domain: domain_name, enabled: true,
+                         alias_target:)
         end
       end
 
@@ -73,7 +73,7 @@ class ImportExportApiController < ApplicationController # rubocop:disable Metric
 
       (params[:mailbox_passwords] || {}).each do |email, crypt|
         domain = find_local_domain_by_email(user, email)
-        account = domain.accounts.find_by(email: email)
+        account = domain.accounts.find_by(email:)
         if account.present?
           unless account.local_mailbox?
             render_error("Account #{email} found, but it is not a local mailbox, cannot set password!")
@@ -81,14 +81,14 @@ class ImportExportApiController < ApplicationController # rubocop:disable Metric
           account.crypt = crypt
           account.save!
         else
-          Account.create!(domain: domain, type: Account.types[:local_mailbox], email: email, enabled: true,
-                          crypt: crypt)
+          Account.create!(domain:, type: Account.types[:local_mailbox], email:, enabled: true,
+                          crypt:)
         end
       end
 
       (params[:mailbox_aliases] || {}).each do |email, alias_target|
         domain = find_local_domain_by_email(user, email)
-        account = domain.accounts.find_by(email: email)
+        account = domain.accounts.find_by(email:)
         if account.present?
           if account.local_mailbox?
             account.forward = true
@@ -102,18 +102,18 @@ class ImportExportApiController < ApplicationController # rubocop:disable Metric
                          'cannot set forwarding target!')
           end
         else
-          Account.create!(domain: domain, type: Account.types[:alias_address], email: email, enabled: true,
-                          alias_target: alias_target)
+          Account.create!(domain:, type: Account.types[:alias_address], email:, enabled: true,
+                          alias_target:)
         end
       end
 
       (params[:mailbox_drop] || []).each do |email|
         domain = find_local_domain_by_email(user, email)
-        account = domain.accounts.find_by(email: email)
+        account = domain.accounts.find_by(email:)
         if account.present?
           render_error("Account #{email} found, but it is not a blackhole address!") unless account.blackhole_address?
         else
-          Account.create!(domain: domain, type: Account.types[:blackhole_address], email: email, enabled: true)
+          Account.create!(domain:, type: Account.types[:blackhole_address], email:, enabled: true)
         end
       end
 
@@ -136,7 +136,7 @@ class ImportExportApiController < ApplicationController # rubocop:disable Metric
   end
 
   def render_error(message, status: 400, abort: true)
-    render json: { error: message }, status: status
+    render status:, json: { error: message }
     throw(:abort) if abort
   end
 
