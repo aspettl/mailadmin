@@ -81,6 +81,12 @@ class DomainTest < ActiveSupport::TestCase
     assert_includes(@local_domain.errors[:domain], 'has already been taken')
   end
 
+  test 'invalid with non-unique domain name (case insensitivity required)' do
+    @local_domain.domain = @alias_domain.domain
+    assert_not @local_domain.valid?, 'domain object should not be valid'
+    assert_includes(@local_domain.errors[:domain], 'has already been taken')
+  end
+
   test 'invalid with domain being a subdomain of another user' do
     domain = Domain.new(domain: 'test.example.com')
     domain.user = users(:quentin)

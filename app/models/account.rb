@@ -18,22 +18,22 @@ class Account < ApplicationRecord
   validates :type, inclusion: { in: types.keys }
   validates :email, uniqueness: true, format: { with: EMAIL_REGEXP }, length: { maximum: 255 }
   validates_each :email do |record, attr, value|
-    unless value.ends_with?("@#{record.domain.domain}")
+    unless record.domain.nil? || value.ends_with?("@#{record.domain.domain}")
       record.errors.add(attr,
                         'must be an account under the currently selected domain name')
     end
   end
-  validates :password, presence: { on: :create, unless: :crypt? },
+  validates :password, presence: { unless: :crypt? },
                        length: { minimum: 10, allow_blank: true, unless: :password_unchanged? },
                        not_pwned: { unless: :password_unchanged? },
                        if: :local_mailbox?
-  validates :password, inclusion: { in: [nil, ''], message: 'must be empty when this is an alias address' },
+  validates :password, inclusion: { in: [nil, ''], message: 'must be empty when this is not a mailbox' },
                        unless: :local_mailbox?
   validates :forward_to, presence: { if: :forward },
                          format: { with: EMAIL_REGEXP, allow_blank: true },
                          length: { maximum: 255 },
                          if: :local_mailbox?
-  validates :forward_to, inclusion: { in: [nil, ''], message: 'must be empty when this is an alias address' },
+  validates :forward_to, inclusion: { in: [nil, ''], message: 'must be empty when this is not a mailbox' },
                          unless: :local_mailbox?
   validates :alias_target, presence: true, length: { maximum: 255 }, if: :alias_address?
   validates_each :alias_target, allow_blank: true, if: :alias_address? do |record, attr, value|
