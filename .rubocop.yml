@@ -228,3 +228,5 @@ Rails/RedundantPresenceValidationOnBelongsTo: # new in 2.13
   Enabled: true
 Rails/RootJoinChain: # new in 2.13
   Enabled: true
+Style/NestedFileDirname: # new in 1.26
+  Enabled: true
