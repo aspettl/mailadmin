@@ -10,9 +10,9 @@ class DomainTest < ActiveSupport::TestCase
   end
 
   test 'valid fixtures' do
-    assert @local_domain.valid?, 'examplecom fixture should be valid'
-    assert @catchall_domain.valid?, 'exampleorg fixture should be valid'
-    assert @alias_domain.valid?, 'examplenet fixture should be valid'
+    assert_predicate @local_domain, :valid?, 'examplecom fixture should be valid'
+    assert_predicate @catchall_domain, :valid?, 'exampleorg fixture should be valid'
+    assert_predicate @alias_domain, :valid?, 'examplenet fixture should be valid'
   end
 
   test 'invalid without type' do
@@ -100,7 +100,7 @@ class DomainTest < ActiveSupport::TestCase
     domain.user = users(:quentin)
     domain.enabled = true
     domain.save(validate: false)
-    assert domain.valid?, 'subdomain user check should only be performed on create'
+    assert_predicate domain, :valid?, 'subdomain user check should only be performed on create'
   end
 
   test 'invalid with catchall but without target' do
@@ -111,7 +111,7 @@ class DomainTest < ActiveSupport::TestCase
 
   test 'valid with catchall target but without catchall active' do
     @local_domain.catchall_target = 'mail@test.xy'
-    assert @local_domain.valid?
+    assert_predicate @local_domain, :valid?
   end
 
   test 'invalid with catchall target being empty' do
