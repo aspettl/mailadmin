@@ -18,30 +18,27 @@ class Account < ApplicationRecord
   validates :type, inclusion: { in: types.keys }
   validates :email, uniqueness: true, format: { with: EMAIL_REGEXP }, length: { maximum: 255 }
   validates_each :email do |record, attr, value|
-    unless record.domain.nil? || value.ends_with?("@#{record.domain.domain}")
-      record.errors.add(attr,
-                        'must be an account under the currently selected domain name')
-    end
+    record.errors.add(attr, :domain_mismatch) unless record.domain.nil? || value.ends_with?("@#{record.domain.domain}")
   end
   validates :password, presence: { unless: :crypt? },
                        length: { minimum: 10, allow_blank: true, unless: :password_unchanged? },
                        not_pwned: { unless: :password_unchanged? },
                        if: :local_mailbox?
-  validates :password, inclusion: { in: [nil, ''], message: 'must be empty when this is not a mailbox' },
+  validates :password, inclusion: { in: [nil, ''], message: :empty_when_not_mailbox },
                        unless: :local_mailbox?
   validates :forward_to, presence: { if: :forward },
                          format: { with: EMAIL_REGEXP, allow_blank: true },
                          length: { maximum: 255 },
                          if: :local_mailbox?
-  validates :forward_to, inclusion: { in: [nil, ''], message: 'must be empty when this is not a mailbox' },
+  validates :forward_to, inclusion: { in: [nil, ''], message: :empty_when_not_mailbox },
                          unless: :local_mailbox?
   validates :alias_target, presence: true, length: { maximum: 255 }, if: :alias_address?
   validates_each :alias_target, allow_blank: true, if: :alias_address? do |record, attr, value|
     targets = value.split(',', 50)
-    record.errors.add(attr, 'is invalid') if targets.any? { |element| !element.match?(EMAIL_REGEXP) }
-    record.errors.add(attr, 'must not redirect to itself') if targets.any? { |element| element == record.email }
+    record.errors.add(attr, :invalid) if targets.any? { |element| !element.match?(EMAIL_REGEXP) }
+    record.errors.add(attr, :self_redirect) if targets.any? { |element| element == record.email }
   end
-  validates :alias_target, inclusion: { in: [nil, ''], message: 'must be empty when this is not an alias address' },
+  validates :alias_target, inclusion: { in: [nil, ''], message: :empty_when_not_alias_address },
                            unless: :alias_address?
 
   before_save :crypt_password

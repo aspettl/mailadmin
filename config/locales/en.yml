@@ -35,3 +35,12 @@ en:
       user: "user"
       domain: "domain"
       account: "account"
+    errors:
+      messages:
+        empty_when_not_mailbox: "must be empty when this is not a mailbox"
+        empty_when_not_alias_address: "must be empty when this is not an alias address"
+        empty_when_alias_domain: "must be empty when this is an alias domain"
+        empty_when_not_alias_domain: "must be empty when this is not an alias domain"
+        domain_mismatch: "must be an account under the currently selected domain name"
+        domain_of_another_user: "is a subdomain of already existing '%{domain}' from a different user"
+        self_redirect: "must not redirect to itself"

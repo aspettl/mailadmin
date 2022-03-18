@@ -19,17 +19,16 @@ class Domain < ApplicationRecord
     (1...parts.length).each do |start|
       domain = parts[start..].join('.')
       unless Domain.where(domain:).where.not(user_id: record.user_id).empty?
-        record.errors.add(attr,
-                          "is a subdomain of already existing '#{domain}' from a different user")
+        record.errors.add(attr, I18n.t(:domain_of_another_user, domain:, scope: %i[activerecord errors messages]))
       end
     end
   end
   validates :catchall_target, presence: { if: :catchall }, format: { with: Account::EMAIL_REGEXP, allow_blank: true },
                               length: { maximum: 255 }, if: :local_domain?
-  validates :catchall_target, inclusion: { in: [nil, ''], message: 'must be empty when this is an alias domain' },
+  validates :catchall_target, inclusion: { in: [nil, ''], message: :empty_when_alias_domain },
                               unless: :local_domain?
   validates :alias_target, format: { with: DOMAIN_REGEXP }, length: { maximum: 255 }, if: :alias_domain?
-  validates :alias_target, inclusion: { in: [nil, ''], message: 'must be empty when this is not an alias domain' },
+  validates :alias_target, inclusion: { in: [nil, ''], message: :empty_when_not_alias_domain },
                            unless: :alias_domain?
 
   def known_alias_domains
