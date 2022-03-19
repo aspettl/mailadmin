@@ -23,7 +23,7 @@ class DashboardsController < ApplicationController
 
   def configreload
     unless @configreload.configured?
-      respond_with_error('Configuration reload cannot be triggered, it is not configured.')
+      respond_with_error(I18n.t(:configreload_not_configured, scope: :messages))
       return
     end
 
@@ -31,11 +31,11 @@ class DashboardsController < ApplicationController
       @configreload.trigger!
 
       respond_to do |format|
-        format.html { redirect_to dashboard_url, notice: 'Configuration reload has been triggered.' }
+        format.html { redirect_to dashboard_url, notice: I18n.t(:configreload_triggered, scope: :messages) }
         format.json { head :no_content }
       end
     rescue StandardError => e
-      respond_with_error("Configuration reload failed, an exception occured (#{e.class})")
+      respond_with_error(I18n.t(:configreload_exception, exception_class: e.class, scope: :messages))
     end
   end
 

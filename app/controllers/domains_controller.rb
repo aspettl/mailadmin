@@ -40,7 +40,7 @@ class DomainsController < ApplicationController
 
     respond_to do |format|
       if @domain.save
-        format.html { redirect_to @domain, notice: 'Domain was successfully created.' }
+        format.html { redirect_to @domain, notice: I18n.t(:domain_created, scope: :messages) }
         format.json { render :show, status: :created, location: @domain }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -53,7 +53,7 @@ class DomainsController < ApplicationController
   def update
     respond_to do |format|
       if @domain.update(domain_params)
-        format.html { redirect_to @domain, notice: 'Domain was successfully updated.' }
+        format.html { redirect_to @domain, notice: I18n.t(:domain_updated, scope: :messages) }
         format.json { render :show, status: :ok, location: @domain }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -67,17 +67,16 @@ class DomainsController < ApplicationController
     if @domain.can_destroy? || (params[:force] == 'true')
       @domain.destroy
       respond_to do |format|
-        format.html { redirect_to domains_url, notice: 'Domain was successfully destroyed.' }
+        format.html { redirect_to domains_url, notice: I18n.t(:domain_destroyed, scope: :messages) }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
         format.html do
-          redirect_to domain_url(@domain), alert: 'Domain not destroyed, there are accounts or known alias domains!'
+          redirect_to domain_url(@domain), alert: I18n.t(:domain_not_destroyed, scope: :messages)
         end
         format.json do
-          render json: { error: 'Domain not destroyed, there are accounts or known alias domains!' },
-                 status: :unprocessable_entity
+          render json: { error: I18n.t(:domain_not_destroyed, scope: :messages) }, status: :unprocessable_entity
         end
       end
     end
