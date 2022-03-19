@@ -12,11 +12,11 @@ class AccountTest < ActiveSupport::TestCase
   end
 
   test 'valid fixtures' do
-    assert @postmaster.valid?, 'postmaster fixture should be valid'
-    assert @mailbox.valid?, 'mailbox fixture should be valid'
-    assert @alias.valid?, 'alias fixture should be valid'
-    assert @disabled_alias.valid?, 'disabled_alias fixture should be valid'
-    assert @drop.valid?, 'drop fixture should be valid'
+    assert_predicate @postmaster, :valid?, 'postmaster fixture should be valid'
+    assert_predicate @mailbox, :valid?, 'mailbox fixture should be valid'
+    assert_predicate @alias, :valid?, 'alias fixture should be valid'
+    assert_predicate @disabled_alias, :valid?, 'disabled_alias fixture should be valid'
+    assert_predicate @drop, :valid?, 'drop fixture should be valid'
   end
 
   test 'invalid without type' do
