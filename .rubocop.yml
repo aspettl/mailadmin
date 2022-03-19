@@ -13,6 +13,9 @@ Layout/LineLength:
   Max: 120
   IgnoredPatterns: ['REGEXP']
 
+Metrics/AbcSize:
+  Max: 20
+
 Metrics/MethodLength:
   Max: 20
 
