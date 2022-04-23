@@ -11,7 +11,7 @@ AllCops:
 
 Layout/LineLength:
   Max: 120
-  IgnoredPatterns: ['REGEXP']
+  AllowedPatterns: ['REGEXP']
 
 Metrics/AbcSize:
   Max: 20
