@@ -19,7 +19,7 @@ class Domain < ApplicationRecord
     (1...parts.length).each do |start|
       domain = parts[start..].join('.')
       unless Domain.where(domain:).where.not(user_id: record.user_id).empty?
-        record.errors.add(attr, I18n.t(:domain_of_another_user, domain:, scope: %i[activerecord errors messages]))
+        record.errors.add(attr, I18n.t(:domain_of_another_user, domain:, scope: 'activerecord.errors.messages'))
       end
     end
   end
