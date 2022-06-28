@@ -98,7 +98,7 @@ class ImportExportApiController < ApplicationController # rubocop:disable Metric
             account.alias_target = alias_target
             account.save!
           else
-            render_error("Account #{email} found, but it is not a local mailbox or alias address, "\
+            render_error("Account #{email} found, but it is not a local mailbox or alias address, " \
                          'cannot set forwarding target!')
           end
         else
