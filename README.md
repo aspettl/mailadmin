@@ -29,10 +29,6 @@ setup, e.g. Postfix with Dovecot.
 * config export to `docker-mailserver`
 * Roundcube password plugin API
 
-:warning: This is an early release to make the project available and get some
-feedback. And hopefully it is already of use to someone. Have a look at the
-open issues for known limitations.
-
 ### Screenshots
 
 * [Manage Domains](https://raw.githubusercontent.com/aspettl/mailadmin/main/screenshots/manage_domains.png)
