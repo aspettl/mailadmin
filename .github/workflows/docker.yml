@@ -59,7 +59,7 @@ jobs:
       # Use file-based cache for configreload - it seems that type=gha
       # works only for a single image.
       - name: File-based cache for Docker layers
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-buildx-${{ github.sha }}
