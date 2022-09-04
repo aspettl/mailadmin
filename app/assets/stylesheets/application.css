@@ -109,6 +109,16 @@ input[type=text], input[type=email], input[type=password] {
   width: 20em;
 }
 
+.field_description {
+  padding: 0 0.5ex 0;
+  margin-left: 10em;
+  max-width: 40em;
+}
+
+.field_description p {
+  font-size: 90%;
+}
+
 .field_with_errors {
   display: inline;
 }

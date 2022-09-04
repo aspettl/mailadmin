@@ -42,6 +42,11 @@
       <% unless account.new_record? %>
         (leave empty to let password remain unchanged)
       <% end %>
+      <div class="field_description">
+        <p>
+        Note:<br /> If you specify a password, it will be checked against previous data breaches. The service <a href="https://haveibeenpwned.com/">Have I Been Pwned</a> will be used for this check. This works without submitting the password (<a href="https://blog.cloudflare.com/validating-leaked-passwords-with-k-anonymity/">k-Anonymity</a>).
+        </p>
+      </div>
     </div>
 
     <div class="field">
