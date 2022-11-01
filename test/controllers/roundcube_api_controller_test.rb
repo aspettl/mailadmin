@@ -32,6 +32,7 @@ class RoundcubeApiControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :unauthorized
     @account.reload
+
     assert_not @account.matches_crypted_password?(NEW_PASSWORD)
   end
 
@@ -41,6 +42,7 @@ class RoundcubeApiControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_equal 'OK', response.body
     @account.reload
+
     assert @account.matches_crypted_password?(NEW_PASSWORD)
   end
 
@@ -51,6 +53,7 @@ class RoundcubeApiControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :bad_request
     @account.reload
+
     assert_equal old_crypt, @account.crypt
   end
 
@@ -62,6 +65,7 @@ class RoundcubeApiControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_equal 'Validation failed: Password is too short (minimum is 10 characters)', response.body
     @account.reload
+
     assert_equal old_crypt, @account.crypt
   end
 
@@ -74,6 +78,7 @@ class RoundcubeApiControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'Validation failed: Password has previously appeared in a data breach and should not be used',
                  response.body
     @account.reload
+
     assert_equal old_crypt, @account.crypt
   end
 end

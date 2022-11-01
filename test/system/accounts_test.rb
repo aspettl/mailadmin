@@ -14,6 +14,7 @@ class AccountsTest < ApplicationSystemTestCase
 
   test 'visiting the index' do
     visit domain_accounts_url(@domain)
+
     assert_selector 'h1', text: 'Accounts'
   end
 
