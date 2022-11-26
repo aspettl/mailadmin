@@ -15,6 +15,30 @@ class DomainTest < ActiveSupport::TestCase
     assert_predicate @alias_domain, :valid?, 'examplenet fixture should be valid'
   end
 
+  test 'valid with subdomain' do
+    @local_domain.domain = 'subdomain.example.com'
+
+    assert_predicate @local_domain, :valid?, 'subdomain should be valid'
+  end
+
+  test 'valid with sub-subdomain' do
+    @local_domain.domain = 'sub.subdomain.example.com'
+
+    assert_predicate @local_domain, :valid?, 'sub-subdomain should be valid'
+  end
+
+  test 'valid with dash in domain' do
+    @local_domain.domain = 'my-example.com'
+
+    assert_predicate @local_domain, :valid?, 'domain with dash should be valid'
+  end
+
+  test 'valid with dash in subdomain and domain' do
+    @local_domain.domain = 'my-subdomain.my-example.com'
+
+    assert_predicate @local_domain, :valid?, 'subdomain and domain with dash should be valid'
+  end
+
   test 'invalid without type' do
     @local_domain.type = nil
 
