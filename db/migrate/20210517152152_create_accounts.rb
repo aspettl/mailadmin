@@ -6,7 +6,7 @@ class CreateAccounts < ActiveRecord::Migration[6.1]
       t.string :email
       t.string :crypt
       t.references :domain, null: false, foreign_key: true
-      t.boolean :enabled
+      t.boolean :enabled # rubocop:disable Rails/ThreeStateBooleanColumn
 
       t.timestamps
     end

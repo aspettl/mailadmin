@@ -10,15 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_05_094041) do
-
-  create_table "accounts", charset: "utf8mb4", force: :cascade do |t|
+ActiveRecord::Schema[7.0].define(version: 2023_04_15_104323) do
+  create_table "accounts", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "email"
     t.string "crypt"
     t.bigint "domain_id", null: false
-    t.boolean "enabled"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "enabled", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean "forward", default: false, null: false
     t.string "forward_to"
     t.integer "type", default: 0, null: false
@@ -29,12 +28,12 @@ ActiveRecord::Schema.define(version: 2021_06_05_094041) do
     t.index ["type", "forward", "forward_to"], name: "index_accounts_on_type_and_forward_and_forward_to"
   end
 
-  create_table "domains", charset: "utf8mb4", force: :cascade do |t|
+  create_table "domains", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "domain"
     t.bigint "user_id", null: false
-    t.boolean "enabled"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "enabled", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "type", default: 0, null: false
     t.string "alias_target"
     t.boolean "catchall", default: false, null: false
@@ -44,16 +43,16 @@ ActiveRecord::Schema.define(version: 2021_06_05_094041) do
     t.index ["user_id"], name: "index_domains_on_user_id"
   end
 
-  create_table "users", charset: "utf8mb4", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
     t.integer "failed_attempts", default: 0, null: false
-    t.datetime "locked_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "locked_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
