@@ -5,7 +5,7 @@ class CreateDomains < ActiveRecord::Migration[6.1]
     create_table :domains do |t|
       t.string :domain
       t.references :user, null: false, foreign_key: true
-      t.boolean :enabled
+      t.boolean :enabled # rubocop:disable Rails/ThreeStateBooleanColumn
 
       t.timestamps
     end
