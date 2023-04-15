@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2021_06_05_094041) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_15_104323) do
   create_table "accounts", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "email"
     t.string "crypt"
     t.bigint "domain_id", null: false
-    t.boolean "enabled"
+    t.boolean "enabled", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "forward", default: false, null: false
@@ -31,7 +31,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_06_05_094041) do
   create_table "domains", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "domain"
     t.bigint "user_id", null: false
-    t.boolean "enabled"
+    t.boolean "enabled", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "type", default: 0, null: false
