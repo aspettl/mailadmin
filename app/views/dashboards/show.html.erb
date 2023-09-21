@@ -40,8 +40,10 @@
   DNS records:
 </p>
 <pre>
-@   3600    IN  MX  10  <%= @mailserver_hostname %>.
-@   3600    IN  TXT     "v=spf1 include:<%= @mailserver_hostname %> ~all"
+<%= @mx_record %>
+<% unless @spf_record.blank? %>
+<%= @spf_record %>
+<% end %>
 </pre>
 
 <h3>Required mail client configuration</h3>
@@ -50,9 +52,11 @@
   Recommended configuration:
 </p>
 <pre>
-SMTP submission:  StartTLS on <%= @mailserver_hostname %>:587
-IMAP:             TLS on <%= @mailserver_hostname %>:993
-ManageSieve:      StartTLS on <%= @mailserver_hostname %>:4190
+SMTP submission:  StartTLS on <%= @smtp_hostname %>:587
+IMAP:             TLS on <%= @imap_hostname %>:993
+<% unless @managesieve_hostname.blank? %>
+ManageSieve:      StartTLS on <%= @managesieve_hostname %>:4190
+<% end %>
 </pre>
 
 <p>
@@ -63,9 +67,11 @@ ManageSieve:      StartTLS on <%= @mailserver_hostname %>:4190
   Deprecated configurations:
 </p>
 <pre>
-SMTP submission:  StartTLS on <%= @mailserver_hostname %>:25
-SMTP submission:  TLS on <%= @mailserver_hostname %>:465
-IMAP:             StartTLS on <%= @mailserver_hostname %>:143
-POP3:             StartTLS on <%= @mailserver_hostname %>:110
-POP3:             TLS on <%= @mailserver_hostname %>:995
+SMTP submission:  StartTLS on <%= @smtp_hostname %>:25
+SMTP submission:  TLS on <%= @smtp_hostname %>:465
+IMAP:             StartTLS on <%= @imap_hostname %>:143
+<% unless @pop3_hostname.blank? %>
+POP3:             StartTLS on <%= @pop3_hostname %>:110
+POP3:             TLS on <%= @pop3_hostname %>:995
+<% end %>
 </pre>
