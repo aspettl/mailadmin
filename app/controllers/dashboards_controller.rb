@@ -17,6 +17,12 @@ class DashboardsController < ApplicationController
     @blackhole_addresses_count = @user.accounts.where(type: Account.types[:blackhole_address]).count
 
     @mailserver_hostname = Rails.configuration.mailserver_hostname
+    @mx_record = Rails.configuration.mx_record
+    @spf_record = Rails.configuration.spf_record
+    @smtp_hostname = Rails.configuration.smtp_hostname
+    @pop3_hostname = Rails.configuration.pop3_hostname
+    @imap_hostname = Rails.configuration.imap_hostname
+    @managesieve_hostname = Rails.configuration.managesieve_hostname
     @webmail_hostname = Rails.configuration.webmail_hostname
     @configreload_configured = @configreload.configured?
   end

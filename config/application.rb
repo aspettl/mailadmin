@@ -33,6 +33,14 @@ module Mailadmin
 
     # Custom application configuration
     config.mailserver_hostname  = ENV.fetch('MAILSERVER_HOSTNAME') { Socket.gethostname }
+    default_mx_record           = "@   3600    IN  MX  10  #{config.mailserver_hostname}."
+    default_spf_record          = "@   3600    IN  TXT     \"v=spf1 include:#{config.mailserver_hostname} ~all\""
+    config.mx_record            = ENV.fetch('MX_RECORD', default_mx_record)
+    config.spf_record           = ENV.fetch('SPF_RECORD', default_spf_record)
+    config.smtp_hostname        = ENV.fetch('SMTP_HOSTNAME', config.mailserver_hostname)
+    config.pop3_hostname        = ENV.fetch('POP3_HOSTNAME', config.mailserver_hostname)
+    config.imap_hostname        = ENV.fetch('IMAP_HOSTNAME', config.mailserver_hostname)
+    config.managesieve_hostname = ENV.fetch('MANAGESIEVE_HOSTNAME', config.mailserver_hostname)
     config.webmail_hostname     = ENV.fetch('WEBMAIL_HOSTNAME', config.mailserver_hostname)
     config.api_token            = ENV.fetch('API_TOKEN', nil)
     config.configreload_webhook = ENV.fetch('CONFIGRELOAD_WEBHOOK', nil)
