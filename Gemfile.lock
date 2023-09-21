@@ -146,7 +146,7 @@ GEM
       ast (~> 2.4.1)
       racc
     public_suffix (5.0.1)
-    puma (6.3.1)
+    puma (6.4.0)
       nio4r (~> 2.0)
     pwned (2.4.1)
     racc (1.7.1)
@@ -271,7 +271,7 @@ DEPENDENCIES
   memoist
   mysql2 (~> 0.5)
   nilify_blanks
-  puma (~> 6.3)
+  puma (~> 6.4)
   pwned
   rails (~> 7.0.8)
   rails-controller-testing
