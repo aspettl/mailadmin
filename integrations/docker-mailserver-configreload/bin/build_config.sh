@@ -15,5 +15,5 @@ fi
 
 JSON=$(curl --silent --fail --header "Authorization: Bearer $MAILADMIN_API_TOKEN" --write-out "%{stderr}[$(date)] Getting JSON data, HTTP status code: %{http_code}\n%{stdout}\n" $MAILADMIN_URL/api/v1/export.json)
 
-echo "$JSON" | jinjanate --format=json /usr/local/share/templates/postfix-accounts.cf > $CONFIG_TMP/postfix-accounts.cf
-echo "$JSON" | jinjanate --format=json /usr/local/share/templates/postfix-virtual.cf > $CONFIG_TMP/postfix-virtual.cf
+echo "$JSON" | jinjanate --quiet --format=json /usr/local/share/templates/postfix-accounts.cf > $CONFIG_TMP/postfix-accounts.cf
+echo "$JSON" | jinjanate --quiet --format=json /usr/local/share/templates/postfix-virtual.cf > $CONFIG_TMP/postfix-virtual.cf
