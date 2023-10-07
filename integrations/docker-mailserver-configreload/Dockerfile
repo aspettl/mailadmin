@@ -3,7 +3,7 @@ LABEL maintainer="aaron@spettl.de"
 
 RUN apk --no-cache add bash coreutils curl
 
-RUN pip install j2cli
+RUN pip install jinjanator
 
 COPY bin/ /usr/local/bin/
 COPY templates/ /usr/local/share/templates/
