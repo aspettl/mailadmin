@@ -114,11 +114,12 @@ GEM
       activesupport (>= 6.1)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
-    importmap-rails (1.2.1)
+    importmap-rails (1.2.3)
       actionpack (>= 6.0.0)
+      activesupport (>= 6.0.0)
       railties (>= 6.0.0)
     io-console (0.6.0)
-    irb (1.8.1)
+    irb (1.8.3)
       rdoc
       reline (>= 0.3.8)
     jbuilder (2.11.5)
@@ -162,7 +163,7 @@ GEM
     parser (3.2.2.3)
       ast (~> 2.4.1)
       racc
-    psych (5.1.1)
+    psych (5.1.1.1)
       stringio
     public_suffix (5.0.1)
     puma (6.4.0)
@@ -265,7 +266,7 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     stringio (3.0.8)
-    thor (1.2.2)
+    thor (1.3.0)
     tilt (2.2.0)
     timeout (0.4.0)
     tzinfo (2.0.6)
