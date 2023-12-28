@@ -1,4 +1,4 @@
-FROM ruby:3.3.0-alpine3.18 AS builder
+FROM ruby:3.3.0-alpine3.19 AS builder
 
 RUN apk --no-cache add build-base zlib-dev tzdata openssl-dev mariadb-dev shared-mime-info
 
@@ -18,10 +18,10 @@ COPY . .
 RUN RAILS_ENV=production SECRET_KEY_BASE=irrelevant bundle exec rails assets:precompile
 
 
-FROM ruby:3.3.0-alpine3.18
+FROM ruby:3.3.0-alpine3.19
 LABEL maintainer="aaron@spettl.de"
 
-RUN apk --no-cache add zlib tzdata libssl1.1 mariadb-connector-c shared-mime-info
+RUN apk --no-cache add zlib tzdata libssl3 mariadb-connector-c shared-mime-info
 
 WORKDIR /app
 
