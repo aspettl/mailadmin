@@ -1,6 +1,6 @@
-FROM ruby:3.3.1-alpine3.19 AS builder
+FROM ruby:3.3.1-slim-bookworm AS builder
 
-RUN apk --no-cache add build-base zlib-dev tzdata openssl-dev mariadb-dev shared-mime-info
+RUN apt-get update && apt-get install -y build-essential libmariadb-dev && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
@@ -18,15 +18,15 @@ COPY . .
 RUN RAILS_ENV=production SECRET_KEY_BASE=irrelevant bundle exec rails assets:precompile
 
 
-FROM ruby:3.3.1-alpine3.19
+FROM ruby:3.3.1-slim-bookworm
 LABEL maintainer="aaron@spettl.de"
 
-RUN apk --no-cache add zlib tzdata libssl3 mariadb-connector-c shared-mime-info
+RUN apt-get update && apt-get install -y libmariadb3 && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-RUN addgroup -g 101 -S app \
- && adduser -u 101 -S app -G app -h /app \
+RUN addgroup --system --gid 101 app \
+ && adduser --system --uid 101 --ingroup app --home /app app \
  && chown -R app:app /app
 
 USER 101
