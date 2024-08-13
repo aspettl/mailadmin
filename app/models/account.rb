@@ -11,7 +11,7 @@ class Account < ApplicationRecord
 
   belongs_to :domain
 
-  enum type: { local_mailbox: 0, alias_address: 1, blackhole_address: 2 }
+  enum :type, { local_mailbox: 0, alias_address: 1, blackhole_address: 2 }
 
   attr_accessor :password
 
