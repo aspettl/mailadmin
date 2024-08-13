@@ -10,7 +10,7 @@ class Domain < ApplicationRecord
   belongs_to :user
   has_many :accounts, dependent: :destroy
 
-  enum type: { local_domain: 0, alias_domain: 1 }
+  enum :type, { local_domain: 0, alias_domain: 1 }
 
   validates :type, inclusion: { in: types.keys }
   validates :domain, uniqueness: true, format: { with: DOMAIN_REGEXP }, length: { maximum: 255 }
