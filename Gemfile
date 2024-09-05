@@ -21,6 +21,8 @@ gem 'importmap-rails'
 # gem 'webpacker', '~> 5.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.12'
+# Required by jbuilder in combination with Ruby 3.5.0 because ostruct is removed from the standard library
+gem 'ostruct', '>= 0.6.0'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
