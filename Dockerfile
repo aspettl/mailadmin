@@ -49,5 +49,4 @@ ENV CONFIGRELOAD_WEBHOOK ""
 
 EXPOSE $PORT
 
-CMD bundle exec rails db:migrate \
- && bundle exec puma -C config/puma.rb
+CMD ["/app/entrypoint.sh"]
