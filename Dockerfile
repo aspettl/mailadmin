@@ -36,18 +36,17 @@ COPY --from=builder --chown=app:app /app .
 RUN bundle config --local path vendor/bundle \
  && bundle config set --local without 'development test'
 
-ENV PORT 3000
-ENV RAILS_ENV production
-ENV DATABASE_URL "mysql2://myuser:mypass@hostname/somedatabase"
-ENV RAILS_SERVE_STATIC_FILES true
-ENV RAILS_LOG_TO_STDOUT true
+ENV PORT=3000
+ENV RAILS_ENV=production
+ENV DATABASE_URL="mysql2://myuser:mypass@hostname/somedatabase"
+ENV RAILS_SERVE_STATIC_FILES=true
+ENV RAILS_LOG_TO_STDOUT=true
 
-ENV MAILSERVER_HOSTNAME mail.example.com
-ENV WEBMAIL_HOSTNAME webmail.example.com
-ENV API_TOKEN ""
-ENV CONFIGRELOAD_WEBHOOK ""
+ENV MAILSERVER_HOSTNAME=mail.example.com
+ENV WEBMAIL_HOSTNAME=webmail.example.com
+ENV API_TOKEN=""
+ENV CONFIGRELOAD_WEBHOOK=""
 
 EXPOSE $PORT
 
-CMD bundle exec rails db:migrate \
- && bundle exec puma -C config/puma.rb
+CMD ["/app/entrypoint.sh"]
