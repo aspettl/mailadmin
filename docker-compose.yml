@@ -18,7 +18,7 @@ services:
 
   # Initialize volume for log files to avoid those being symlinked to stdout/stderr
   init-logs:
-    image: debian:buster
+    image: debian:12-slim
     command: "touch /var/log/nginx/access.log && touch /var/log/nginx/error.log"
     volumes:
       - nginx-logs:/var/log/nginx
