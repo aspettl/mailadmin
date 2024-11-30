@@ -11,7 +11,12 @@ Bundler.require(*Rails.groups)
 module Mailadmin
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
+    config.load_defaults 8.0
+
+    # Please, add to the `ignore` list any other `lib` subdirectories that do
+    # not contain `.rb` files, or that should not be reloaded or eager loaded.
+    # Common ones are `templates`, `generators`, or `middleware`, for example.
+    config.autoload_lib(ignore: %w[assets tasks])
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -20,9 +25,6 @@ module Mailadmin
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-
-    # Avoid password fields of Roundcube password plugin API in logs
-    config.filter_parameters += %i[curpass newpass]
 
     # Do not use encrypted secrets, the application is delivered as a public docker image.
     # But we still need to set secret_key_base.
