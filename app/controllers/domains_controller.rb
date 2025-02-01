@@ -104,10 +104,10 @@ class DomainsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def new_domain_params
-    params.require(:domain).permit(:type, :domain, :enabled, :catchall, :catchall_target, :alias_target)
+    params.expect(domain: %i[type domain enabled catchall catchall_target alias_target])
   end
 
   def domain_params
-    params.require(:domain).permit(:enabled, :catchall, :catchall_target, :alias_target)
+    params.expect(domain: %i[enabled catchall catchall_target alias_target])
   end
 end
