@@ -1,6 +1,6 @@
 FROM ruby:3.4.2-slim-bookworm AS builder
 
-RUN apt-get update && apt-get install -y build-essential libmariadb-dev && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y build-essential libmariadb-dev libyaml-dev && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
@@ -21,7 +21,7 @@ RUN RAILS_ENV=production SECRET_KEY_BASE=irrelevant bundle exec rails assets:pre
 FROM ruby:3.4.2-slim-bookworm
 LABEL maintainer="aaron@spettl.de"
 
-RUN apt-get update && apt-get install -y libmariadb3 && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y libmariadb3 libyaml-0-2 && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
