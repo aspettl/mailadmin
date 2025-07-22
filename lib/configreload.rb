@@ -15,6 +15,5 @@ class Configreload
 
   def trigger!
     Net::HTTP.get_response(@webhook_uri) if configured?
-    configured?
   end
 end
