@@ -20,7 +20,7 @@ gem 'importmap-rails'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 # gem 'webpacker', '~> 5.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.13'
+gem 'jbuilder', '~> 2.14'
 # Required by jbuilder in combination with Ruby 3.5.0 because ostruct is removed from the standard library
 gem 'ostruct', '>= 0.6.0'
 # Use Redis adapter to run Action Cable in production
