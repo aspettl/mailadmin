@@ -177,7 +177,7 @@ GEM
       date
       stringio
     public_suffix (6.0.2)
-    puma (7.0.4)
+    puma (7.1.0)
       nio4r (~> 2.0)
     pwned (2.4.1)
     racc (1.8.1)
@@ -333,7 +333,7 @@ DEPENDENCIES
   mysql2 (~> 0.5)
   nilify_blanks
   ostruct (>= 0.6.0)
-  puma (~> 7.0)
+  puma (~> 7.1)
   pwned
   rails (~> 8.0.3)
   rails-controller-testing
