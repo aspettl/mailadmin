@@ -46,8 +46,8 @@ class AccountsController < ApplicationController
         format.html { redirect_to [@domain, @account], notice: I18n.t(:account_created, scope: 'messages') }
         format.json { render :show, status: :created, location: [@domain, @account] }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @account.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: @account.errors, status: :unprocessable_content }
       end
     end
   end
@@ -59,8 +59,8 @@ class AccountsController < ApplicationController
         format.html { redirect_to [@domain, @account], notice: I18n.t(:account_updated, scope: 'messages') }
         format.json { render :show, status: :ok, location: [@domain, @account] }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @account.errors, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
+        format.json { render json: @account.errors, status: :unprocessable_content }
       end
     end
   end
@@ -79,7 +79,7 @@ class AccountsController < ApplicationController
           redirect_to domain_account_url(@domain, @account), alert: I18n.t(:account_not_destroyed, scope: 'messages')
         end
         format.json do
-          render json: { error: I18n.t(:account_not_destroyed, scope: 'messages') }, status: :unprocessable_entity
+          render json: { error: I18n.t(:account_not_destroyed, scope: 'messages') }, status: :unprocessable_content
         end
       end
     end
