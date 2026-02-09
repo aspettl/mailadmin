@@ -6,5 +6,6 @@
 /node_modules
 /tmp
 !/tmp/pids/.keep
+CLAUDE.md
 docker-compose.yml
 README.md
