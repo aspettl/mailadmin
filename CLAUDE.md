@@ -38,6 +38,9 @@ bundle exec rails test:system
 # Run linter
 bundle exec rubocop -c .rubocop.yml
 
+# Load test fixtures into development database for manual testing
+bundle exec rails db:fixtures:load
+
 # Start development server (port 3000)
 bundle exec rails server
 ```
@@ -150,7 +153,7 @@ All code files use `# frozen_string_literal: true` at the top.
 - **Fixtures**: YAML fixtures in `test/fixtures/` auto-loaded for all tests
 - **Parallelization**: Tests run in parallel (`workers: :number_of_processors`)
 - **System tests**: Capybara + Selenium WebDriver
-- **Test data**: Two users (alice@example.com, quentin@example.com), sample domains and accounts
+- **Test data**: Two users (alice@example.com with password `test`, quentin@example.com with password `test2`), sample domains and accounts
 
 The CI pipeline (`bundle exec rails test:all`) runs all test types followed by Rubocop.
 
