@@ -20,7 +20,7 @@ jobs:
       - name: Check out source code
         uses: actions/checkout@v6
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+        uses: docker/setup-qemu-action@v4
         with:
           platforms: arm64
       - name: Set up Docker Buildx
@@ -60,7 +60,7 @@ jobs:
       - name: Check out source code
         uses: actions/checkout@v6
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+        uses: docker/setup-qemu-action@v4
         with:
           platforms: arm64
       - name: Set up Docker Buildx
