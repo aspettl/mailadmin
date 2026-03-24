@@ -10,6 +10,8 @@ class AccountsTest < ApplicationSystemTestCase
     fill_in 'Email', with: users(:alice).email
     fill_in 'Password', with: 'test'
     click_on 'Log in'
+
+    assert_selector 'h1', text: 'Accounts'
   end
 
   test 'visiting the index' do
