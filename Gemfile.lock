@@ -153,7 +153,7 @@ GEM
     msgpack (1.8.0)
     mysql2 (0.5.7)
       bigdecimal
-    net-imap (0.6.3)
+    net-imap (0.6.4)
       date
       net-protocol
     net-pop (0.1.2)
