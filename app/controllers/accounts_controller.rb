@@ -89,11 +89,11 @@ class AccountsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_domain
-    @domain = current_user.domains.find(params[:domain_id])
+    @domain = current_user.domains.find(params.expect(:domain_id))
   end
 
   def set_account
-    @account = @domain.accounts.find(params[:id])
+    @account = @domain.accounts.find(params.expect(:id))
   end
 
   # Hooks for generation of dynamic breadcrumbs.
