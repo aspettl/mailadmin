@@ -15,13 +15,8 @@ jobs:
           bundler-cache: true
       - name: Start MySQL server
         run: sudo systemctl start mysql.service
-      - name: Create database
-        run: bundle exec rails db:create
+      - name: Run CI
+        run: bin/ci
         env:
           DATABASE_URL: mysql2://root:root@localhost/mailadmin_test
-      - name: Run tests
-        run: bundle exec rails test:all
-        env:
-          DATABASE_URL: mysql2://root:root@localhost/mailadmin_test
-      - name: Run rubocop
-        run: bundle exec rubocop -c .rubocop.yml
+          RAILS_ENV: test
