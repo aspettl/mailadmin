@@ -33,6 +33,9 @@ module Mailadmin
       SecureRandom.hex(64)
     end
 
+    # We do not need image processing in Active Storage
+    config.active_storage.variant_processor = :disabled
+
     # Custom application configuration
     config.mailserver_hostname  = ENV.fetch('MAILSERVER_HOSTNAME') { Socket.gethostname }
     default_mx_record           = "@   3600    IN  MX  10  #{config.mailserver_hostname}."
