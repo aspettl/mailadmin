@@ -334,6 +334,7 @@ DEPENDENCIES
   devise
   importmap-rails
   jbuilder (~> 2.15)
+  json (~> 2.21)
   memoist
   mysql2 (~> 0.5)
   nilify_blanks

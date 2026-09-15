@@ -7,6 +7,9 @@ ruby '4.0.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 8.1.3'
+# Keep json gem at 2.x, Rails 8.1.3 is not compatible with 3.x but does not declare a version range
+# Remove once a fix with https://github.com/rails/rails/pull/58601 is released.
+gem 'json', '~> 2.21'
 # Use mysql as the database for Active Record
 gem 'mysql2', '~> 0.5'
 # Use Puma as the app server
