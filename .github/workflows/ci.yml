@@ -6,17 +6,42 @@ jobs:
   test:
     name: Rails tests
     runs-on: ubuntu-latest
+    container:
+      # Keep in sync with the base image in the Dockerfile
+      image: ruby:4.0.7-slim-bookworm
+      # Chromium needs more shared memory than Docker's default of 64 MB
+      options: --shm-size=1g
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -proot"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=20
+    env:
+      DATABASE_URL: mysql2://root:root@mysql/mailadmin_test
+      RAILS_ENV: test
+      BUNDLE_BUILD__SASSC: --disable-march-tune-native
+      # Use Debian's chromium and chromedriver for system tests instead of downloading Chrome for Testing
+      SE_BROWSER_PATH: /usr/bin/chromium
+      SE_OFFLINE: 'true'
     steps:
+      - name: Install system packages
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends build-essential git libmariadb-dev libyaml-dev chromium chromium-driver
       - name: Check out source code
         uses: actions/checkout@v7
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+      - name: Cache gems
+        uses: actions/cache@v6
         with:
-          bundler-cache: true
-      - name: Start MySQL server
-        run: sudo systemctl start mysql.service
+          path: /usr/local/bundle
+          key: gems-ruby-4.0.7-slim-bookworm-${{ hashFiles('Gemfile.lock') }}
+          restore-keys: gems-ruby-4.0.7-slim-bookworm-
+      - name: Install gems
+        run: bundle install --jobs 4
       - name: Run CI
         run: bin/ci
-        env:
-          DATABASE_URL: mysql2://root:root@localhost/mailadmin_test
-          RAILS_ENV: test
