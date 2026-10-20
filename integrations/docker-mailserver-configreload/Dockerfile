@@ -1,4 +1,4 @@
-FROM python:3.12-alpine
+FROM python:3.15-alpine
 LABEL maintainer="aaron@spettl.de"
 
 RUN apk --no-cache add bash coreutils curl
