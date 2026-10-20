@@ -1,4 +1,4 @@
-FROM ruby:4.0.7-slim-bookworm AS builder
+FROM ruby:4.0.7-slim-trixie AS builder
 
 RUN apt-get update && apt-get install -y build-essential libmariadb-dev libyaml-dev && rm -rf /var/lib/apt/lists/*
 
@@ -18,15 +18,15 @@ COPY . .
 RUN RAILS_ENV=production SECRET_KEY_BASE=irrelevant bundle exec rails assets:precompile
 
 
-FROM ruby:4.0.7-slim-bookworm
+FROM ruby:4.0.7-slim-trixie
 LABEL maintainer="aaron@spettl.de"
 
 RUN apt-get update && apt-get install -y libmariadb3 libyaml-0-2 && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-RUN addgroup --system --gid 101 app \
- && adduser --system --uid 101 --ingroup app --home /app app \
+RUN groupadd --system --gid 101 app \
+ && useradd --system --uid 101 --gid app --home-dir /app --no-create-home --shell /usr/sbin/nologin app \
  && chown -R app:app /app
 
 USER 101

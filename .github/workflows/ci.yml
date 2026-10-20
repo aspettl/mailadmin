@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       # Keep in sync with the base image in the Dockerfile
-      image: ruby:4.0.7-slim-bookworm
+      image: ruby:4.0.7-slim-trixie
       # Chromium needs more shared memory than Docker's default of 64 MB
       options: --shm-size=1g
     services:
@@ -39,8 +39,8 @@ jobs:
         uses: actions/cache@v6
         with:
           path: /usr/local/bundle
-          key: gems-ruby-4.0.7-slim-bookworm-${{ hashFiles('Gemfile.lock') }}
-          restore-keys: gems-ruby-4.0.7-slim-bookworm-
+          key: gems-ruby-4.0.7-slim-trixie-${{ hashFiles('Gemfile.lock') }}
+          restore-keys: gems-ruby-4.0.7-slim-trixie-
       - name: Install gems
         run: bundle install --jobs 4
       - name: Run CI
