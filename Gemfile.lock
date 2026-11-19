@@ -188,7 +188,7 @@ GEM
     prism (2.1.0-aarch64-linux-gnu)
     prism (2.1.0-x86_64-linux-gnu)
     public_suffix (7.0.5)
-    puma (8.0.3)
+    puma (8.1.1)
       nio4r (~> 2.0)
     pwned (2.4.1)
     racc (1.8.1)
@@ -344,7 +344,7 @@ DEPENDENCIES
   mysql2 (~> 0.5)
   nilify_blanks
   ostruct (>= 0.6.0)
-  puma (~> 8.0)
+  puma (~> 8.1)
   pwned
   rails (~> 8.1.4)
   rails-controller-testing
